@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { textStyle } from '../style/style';
 import NextRace from './next-race/next-race';
@@ -5,6 +6,11 @@ import NextRace from './next-race/next-race';
 export default function Header() {
   return (
     <View style={styles.header}>
+       <StatusBar
+        animated={true}
+        backgroundColor="red"
+        style="light"
+      />
       <Text style={styles.season}>
         Сезон 2022
       </Text>
@@ -32,6 +38,6 @@ const styles = StyleSheet.create({
   },
   progress: {
     marginTop: 100,
-    marginHorizontal: "auto"
+    textAlign: "center",
   },
 });

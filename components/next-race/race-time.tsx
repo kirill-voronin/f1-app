@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { DateTime, Race } from "../../axois/api-props";
-import { textStyle } from "../../style/style";
+import { StyleSheet, View } from "react-native";
+import { Race } from "../../axois/api-props";
 import RaceTimeRow from "./race-time-row";
 
 interface RaceTimeProps {
@@ -34,19 +33,19 @@ export default function RaceTime({
     } else {
       return null;
     }
-  }
+  };
 
   const race = (): JSX.Element => {
     return (
       <RaceTimeRow 
-      title="Гонка"
-      date={nextRace?.date} 
-      time={nextRace?.time} />
+        title="Гонка"
+        date={nextRace?.date} 
+        time={nextRace?.time} />
     )
-  }
+  };
 
   return (
-    <View>
+    <View style={style.container}>
       {isSprint && sprint()}
       {qualifying()}
       {race()}
@@ -55,5 +54,8 @@ export default function RaceTime({
 }
 
 const style = StyleSheet.create({
-
+  container: {
+    justifyContent: "space-around",
+    height: "50%"
+  },
 });
