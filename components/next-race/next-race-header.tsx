@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Svg from "react-native-svg";
 import Icon from "../icons";
 import { textStyle } from "../../style/style";
-import { MRDataRace, Race } from "../../axois/api-props";
-import axios from "../../axois/axios";
+import { Race } from "../../axois/api-props";
 
 interface NRHeaderProps {
   nextRace?: Race;
@@ -19,7 +17,7 @@ export default function NRHeader({
         Следующая гонка
       </Text>
       <View style={style.img}>
-        {/* <Icon /> */}
+        <Icon name={nextRace?.Circuit.Location.country}/>
         <Text style={style.granPri}>
           {nextRace?.raceName}
         </Text>
