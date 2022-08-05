@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
   progress: {
     marginTop: 100,
     textAlign: "center",
+    color: "white"
   },
 });

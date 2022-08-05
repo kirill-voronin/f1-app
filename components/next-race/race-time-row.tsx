@@ -35,11 +35,11 @@ export default function RaceTimeRow({
 const style = StyleSheet.create({
   row: {
     flexDirection:"row",
-    marginHorizontal: 10,
+    marginHorizontal: 30,
     marginTop: 15,
   },
   title: {
-    flexBasis: 170
+    flexBasis: 140
   },
   date: {
     flexBasis: 100

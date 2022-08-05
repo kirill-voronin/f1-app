@@ -1,21 +1,33 @@
-import Svg, { Path } from "react-native-svg";
+import React from "react";
+import Svg, { Rect, Symbol, Use } from "react-native-svg";
 
-export default function Icon() {
+interface IconsProps {
+  name?: string;
+}
+
+export default function Icons({
+  name
+}: IconsProps) {
   return (
-    <svg
-      viewBox="0 0 3020 3020"
-    >
-      <g>
-        <path fill="#002494" d="M0 0H1010V2000H0z"></path>
-        <path fill="#F7F7F7" d="M1000 0H2010V2000H1000z"></path>
-        <path fill="#ED2938" d="M2000 0H3000V2000H2000z"></path>
-        <path
-          fill="none"
-          stroke="#00000"
-          strokeWidth="15"
-          d="M0 0H3000V2000H0z"
-        ></path>
-      </g>
-    </svg>
-  );
+    <Svg
+      width={48}
+      height={32}>
+
+      {/* Флаг Франции */}
+      <Symbol id="Franch" viewBox="0 0 48 32">
+        <Rect fill={"#002494"} x={0} y={0} width={16} height={32} />
+        <Rect fill={"#F7F7F7"} x={16} y={0} width={16} height={32} />
+        <Rect fill={"#ED2938"} x={32} y={0} width={16} height={32} />
+      </Symbol>
+      
+      {/* Флаг Бельгии */}
+      <Symbol id="Belgium" viewBox="0 0 48 32">
+        <Rect fill={"#000000"} x={0} y={0} width={16} height={32} />
+        <Rect fill={"#fdda25"} x={16} y={0} width={16} height={32} />
+        <Rect fill={"#ef3340"} x={32} y={0} width={16} height={32} />
+      </Symbol>
+
+      <Use href={`#${name}`} x={0} y={0} width="100%" height="100%"></Use>
+    </Svg>
+  )
 }
