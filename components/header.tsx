@@ -15,9 +15,6 @@ export default function Header() {
         Сезон 2022
       </Text>
       <NextRace />
-      <Text style={[styles.progress, textStyle.header]}>
-        В разработке
-      </Text>
     </View>
   );
 }
