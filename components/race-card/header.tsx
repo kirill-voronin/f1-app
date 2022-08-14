@@ -1,3 +1,4 @@
+import moment from "moment";
 import { StyleSheet, Text, View } from "react-native";
 import { textStyle } from "../../style/style";
 import Icons from "../icons";
@@ -5,11 +6,15 @@ import Icons from "../icons";
 interface RaceCardHeaderProps {
   circuit?: string;
   country?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export default function Header({
   circuit,
   country,
+  startDate = "2022-11-18",
+  endDate = "2022-11-20"
 }: RaceCardHeaderProps) {
   return (
     <View style={style.container}>
@@ -21,7 +26,9 @@ export default function Header({
           {circuit}
         </Text>
         <Text>
-          
+          {moment(startDate).format("DD-")}
+          {moment(endDate).format("DD MMMM")}
+          {/* {startDate} */}
         </Text>
       </View>
 
