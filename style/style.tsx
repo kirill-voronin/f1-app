@@ -11,6 +11,10 @@ export const textStyle = StyleSheet.create({
     fontWeight: "700",
   },
   statusbar: {
-    color: "white"
+    color: "white",
+  },
+  mainSmall: {
+    fontSize: 14,
+    fontWeight: "700",
   }
 })

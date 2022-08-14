@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { MRDataRace, Race } from "../../axois/api-props";
-import axios from "../../axois/axios";
+import axios, { NEXT_RACE } from "../../axois/axios";
 import NRHeader from "./next-race-header";
 import RaceTime from "./race-time";
 
@@ -10,7 +10,7 @@ export default function NextRace() {
   
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get("/current/next.json");
+      const response = await axios.get(NEXT_RACE);
       const data: MRDataRace = response.data;
       setNextRace(data.MRData.RaceTable.Races[0]);
     }
