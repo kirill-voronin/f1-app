@@ -6,11 +6,6 @@ import NextRace from './next-race/next-race';
 export default function Header() {
   return (
     <View style={styles.header}>
-       <StatusBar
-        animated={true}
-        backgroundColor="red"
-        style="light"
-      />
       <Text style={styles.season}>
         Сезон 2022
       </Text>
@@ -31,11 +26,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     color: "#FFFFFF",
-    marginTop: 25
+    marginTop: 25,
   },
   progress: {
     marginTop: 100,
     textAlign: "center",
-    color: "white"
+    color: "white",
   },
 });

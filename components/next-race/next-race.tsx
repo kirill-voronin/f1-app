@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { MRDataRace, Race } from "../../axois/api-props";
 import axios, { NEXT_RACE } from "../../axois/axios";
-import NRHeader from "./next-race-header";
+import { textStyle } from "../../style/style";
 import RaceTime from "./race-time";
+import Icon from "../icons";
 
 export default function NextRace() {
   const [nextRace, setNextRace] = useState<Race>();
@@ -19,7 +20,17 @@ export default function NextRace() {
 
   return (
     <View style={style.container}>
-      <NRHeader nextRace={nextRace} />
+      <View>
+        <Text style={[style.nextRace, textStyle.header]}>
+          Следующая гонка
+        </Text>
+        <View style={style.img}>
+          <Icon name={nextRace?.Circuit.Location.country}/>
+          <Text style={style.granPri}>
+            {nextRace?.raceName}
+          </Text>
+        </View>      
+      </View>
       <View style={style.line} />
       <RaceTime nextRace={nextRace}/>
     </View>
@@ -43,5 +54,21 @@ const style = StyleSheet.create({
     height: 3,
     width: "100%",
     backgroundColor: "#FF0000"
+  },
+  nextRace: {
+    marginTop: 5,
+    textAlign: "center",
+  },
+  img: {
+    flexDirection:"row",
+    justifyContent: "center",
+    height: 50,
+    width: "100%",
+    marginTop: 10,
+  },
+  granPri: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginStart: 10
   },
 })
