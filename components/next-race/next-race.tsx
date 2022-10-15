@@ -8,33 +8,29 @@ import Icon from "../icons";
 
 export default function NextRace() {
   const [nextRace, setNextRace] = useState<Race>();
-  
+
   useEffect(() => {
     const getData = async () => {
       const response = await axios.get(NEXT_RACE);
       const data: MRDataRace = response.data;
       setNextRace(data.MRData.RaceTable.Races[0]);
-    }
+    };
     getData();
   }, []);
 
   return (
     <View style={style.container}>
       <View>
-        <Text style={[style.nextRace, textStyle.header]}>
-          Следующая гонка
-        </Text>
+        <Text style={[style.nextRace, textStyle.header]}>Следующая гонка</Text>
         <View style={style.img}>
-          <Icon name={nextRace?.Circuit.Location.country}/>
-          <Text style={style.granPri}>
-            {nextRace?.raceName}
-          </Text>
-        </View>      
+          <Icon name={nextRace?.Circuit.Location.country} />
+          <Text style={style.granPri}>{nextRace?.raceName}</Text>
+        </View>
       </View>
       <View style={style.line} />
-      <RaceTime nextRace={nextRace}/>
+      <RaceTime nextRace={nextRace} />
     </View>
-  )
+  );
 }
 
 const style = StyleSheet.create({
@@ -44,23 +40,24 @@ const style = StyleSheet.create({
     backgroundColor: "white",
     marginHorizontal: 20,
     marginTop: 20,
+    elevation: 4,
     shadowRadius: 20,
     shadowOffset: {
       height: 4,
-      width: 5
-    }
+      width: 5,
+    },
   },
   line: {
     height: 3,
     width: "100%",
-    backgroundColor: "#FF0000"
+    backgroundColor: "#FF0000",
   },
   nextRace: {
     marginTop: 5,
     textAlign: "center",
   },
   img: {
-    flexDirection:"row",
+    flexDirection: "row",
     justifyContent: "center",
     height: 50,
     width: "100%",
@@ -69,6 +66,6 @@ const style = StyleSheet.create({
   granPri: {
     fontSize: 20,
     fontWeight: "700",
-    marginStart: 10
+    marginStart: 10,
   },
-})
+});

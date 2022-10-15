@@ -25,18 +25,18 @@ export default function RaceCard({
         startDate={startDate}
         endDate={endDate}
       />
-      <Footer
-        name={name} />
+      <Footer name={name} />
     </View>
-  )
+  );
 }
 
 const style = StyleSheet.create({
   container: {
     height: 70,
+    elevation: 4,
     backgroundColor: "white",
     marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 10,
   },
-})
+});

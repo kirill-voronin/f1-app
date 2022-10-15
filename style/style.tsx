@@ -4,7 +4,7 @@ export const textStyle = StyleSheet.create({
   main: {
     fontSize: 16,
     fontWeight: "700",
-    color: "black"
+    color: "black",
   },
   header: {
     fontSize: 20,
@@ -16,5 +16,12 @@ export const textStyle = StyleSheet.create({
   mainSmall: {
     fontSize: 14,
     fontWeight: "700",
-  }
-})
+  },
+  inDevelopmentText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "700",
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+});
