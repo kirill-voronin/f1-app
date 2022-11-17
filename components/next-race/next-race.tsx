@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { MRDataRace, Race } from "../../axois/api-props";
+import { MRDataRace, Race } from "../../axois/data-race";
 import axios, { NEXT_RACE } from "../../axois/axios";
 import { textStyle } from "../../style/style";
 import RaceTime from "./race-time";
-import Icon from "../icons";
+import Icon from "../../icons/flag-icons";
 
 export default function NextRace() {
   const [nextRace, setNextRace] = useState<Race>();

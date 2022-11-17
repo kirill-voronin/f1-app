@@ -1,7 +1,7 @@
 import moment from "moment";
 import { StyleSheet, Text, View } from "react-native";
 import { textStyle } from "../../style/style";
-import Icons from "../icons";
+import FlagIcons from "../../icons/flag-icons";
 
 interface RaceCardHeaderProps {
   circuit?: string;
@@ -14,26 +14,23 @@ export default function Header({
   circuit,
   country,
   startDate = "2022-11-18",
-  endDate = "2022-11-20"
+  endDate = "2022-11-20",
 }: RaceCardHeaderProps) {
   return (
     <View style={style.container}>
       <View style={style.icon}>
-        <Icons name={country} size="small" />
+        <FlagIcons name={country} size="small" />
       </View>
       <View style={style.textContainer}>
-        <Text style={textStyle.mainSmall}>
-          {circuit}
-        </Text>
+        <Text style={textStyle.mainSmall}>{circuit}</Text>
         <Text>
           {moment(startDate).format("DD-")}
           {moment(endDate).format("DD MMMM")}
           {/* {startDate} */}
         </Text>
       </View>
-
     </View>
-  )
+  );
 }
 
 const style = StyleSheet.create({
@@ -51,4 +48,4 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     marginHorizontal: 5,
   },
-})
+});

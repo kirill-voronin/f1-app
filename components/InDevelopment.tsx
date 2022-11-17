@@ -1,20 +1,24 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
-export default function Pilots() {
+const InDevelopment = (route: any) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={textStyle.inDevelopmentText}>В разработке</Text>
-    </SafeAreaView>
+      <Text style={textStyle.inDevelopmentText}>{route.name}</Text>
+    </View>
   );
-}
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: "100%",
     justifyContent: "center",
-    backgroundColor: "#1E1E1E",
+    alignItems: "center",
+    backgroundColor: colors.secondary,
   },
 });
+
+export default InDevelopment;

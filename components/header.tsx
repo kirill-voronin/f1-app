@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 import NextRace from "./next-race/next-race";
 
@@ -14,7 +15,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#FF0000",
+    backgroundColor: colors.primary,
     elevation: 4,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
