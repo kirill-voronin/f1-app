@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ScrollView, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
@@ -20,6 +20,22 @@ export default function PilotsStanding() {
     });
   }, []);
 
+  const keyExtractor = (item: DriverStanding) => `pilot-${item.Driver.driverId}`;
+
+  const renderPilotCard = ({ item }: { item: DriverStanding }) => {
+    const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
+    return (
+      <PilotCard
+        position={item.position}
+        driverName={name}
+        commandName={item.Constructors[0].name}
+        points={item.points}
+        nationality={item.Driver.nationality}
+        commandId={item.Constructors[0].constructorId}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -31,21 +47,11 @@ export default function PilotsStanding() {
         </View>
       )}
       {pilots.length != 0 && (
-        <ScrollView>
-          {pilots.map((pilot, index) => {
-            const name = `${pilot.Driver.givenName} ${pilot.Driver.familyName}`;
-            return (
-              <PilotCard
-                key={index}
-                position={pilot.position}
-                driverName={name}
-                commandName={pilot.Constructors[0].name}
-                points={pilot.points}
-                nationality={pilot.Driver.nationality}
-                commandId={pilot.Constructors[0].constructorId}></PilotCard>
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          data={pilots}
+          keyExtractor={keyExtractor}
+          renderItem={renderPilotCard}
+        />
       )}
     </SafeAreaView>
   );

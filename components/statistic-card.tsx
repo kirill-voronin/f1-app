@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import ControlIcons from "../icons/controls-icons";
-import FlagIcons from "../icons/flag-icons";
 import StatisticIcons from "../icons/statistic-icons";
 import { colors } from "../style/colors";
 
@@ -10,7 +9,7 @@ interface StatisticCardProps {
   title: string;
 }
 
-export default function StatisticCard({ name, title }: StatisticCardProps) {
+export default function StatisticCard({ title }: StatisticCardProps) {
   return (
     <View style={styles.container}>
       <View style={styles.iconBlock}>

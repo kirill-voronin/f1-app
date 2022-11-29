@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   View,
@@ -6,8 +6,6 @@ import {
   Text,
   ActivityIndicator,
   TouchableOpacity,
-  FlatList,
-  TouchableHighlight,
 } from "react-native";
 import { MRDataRace, Race } from "../../axois/data-race";
 import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
@@ -15,7 +13,6 @@ import Header from "../../components/header";
 import RaceCard from "../../components/race-card/race-card";
 import { textStyle } from "../../style/style";
 import { colors } from "../../style/colors";
-import { DataProvider, LayoutProvider, RecyclerListView } from "recyclerlistview";
 
 interface CalendarProps {
   navigation: any;
@@ -26,13 +23,14 @@ export default function Calendar({ navigation }: CalendarProps) {
   const [lastRaces, setLastRaces] = useState<Race[]>([]);
   const [nextRace, setNextRace] = useState<Race>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [row, setRow] = useState<any>([]);
+  const [isEndSeason, setIsEndSeason] = useState<boolean>(false);
 
   useEffect(() => {
     const getNextRace = async () => {
       await axios.get(NEXT_RACE).then((response) => {
         const thisNextRace: MRDataRace = response.data;
-        setNextRace(thisNextRace.MRData.RaceTable.Races[0]);
+        if (thisNextRace.MRData.RaceTable.Races.length === 0) setIsEndSeason(true);
+        else setNextRace(thisNextRace.MRData.RaceTable.Races[0]);
       });
     };
     getNextRace();
@@ -43,23 +41,28 @@ export default function Calendar({ navigation }: CalendarProps) {
       setIsLoading(true);
       await axios.get(ALL_RACES).then((response) => {
         const allRaces: MRDataRace = response.data;
-        const nextRaces = allRaces.MRData.RaceTable.Races.filter(
-          (race) => Number(race.round) > Number(nextRace?.round)
-        );
-        const lastRaces = allRaces.MRData.RaceTable.Races.filter(
-          (race) => Number(race.round) < Number(nextRace?.round)
-        );
+        let nextRaces: Race[] = [];
+        let lastRaces: Race[] = [];
+        if (!isEndSeason) {
+          nextRaces = allRaces.MRData.RaceTable.Races.filter(
+            (race) => Number(race.round) > Number(nextRace?.round)
+          );
+          lastRaces = allRaces.MRData.RaceTable.Races.filter(
+            (race) => Number(race.round) < Number(nextRace?.round)
+          );
+        } else {
+          lastRaces = allRaces.MRData.RaceTable.Races;
+        }
+
         setNextRaces(nextRaces);
         setLastRaces(lastRaces);
         if (lastRaces.length != 0) {
           setIsLoading(false);
         }
-        setRow(dataProvider.cloneWithRows(lastRaces));
-        console.log("loading races is done");
       });
     };
     getNextRaces();
-  }, [nextRace]);
+  }, [nextRace, isEndSeason]);
 
   const onRaceCardPressHandler = (round = "0") => {
     navigation.navigate("RaceInformation", {
@@ -67,50 +70,24 @@ export default function Calendar({ navigation }: CalendarProps) {
     });
   };
 
-  // const renderRaceCards = (races: Race[]) => {
-  //   return races.map((race) => {
-  //     return (
-  //       <TouchableOpacity
-  //         key={`touch-${race.raceName}`}
-  //         onPress={() => onRaceCardPressHandler(race.round)}>
-  //         <RaceCard
-  //           key={race.raceName}
-  //           name={race.raceName}
-  //           circuit={race.Circuit.Location.locality}
-  //           country={race.Circuit.Location.country}
-  //           startDate={race.FirstPractice.date}
-  //           endDate={race.date}
-  //         />
-  //       </TouchableOpacity>
-  //     );
-  //   });
-  // };
-
-  const renderRaceCards = (item: any) => (
-    <RaceCard
-      key={item.raceName}
-      name={item.raceName}
-      circuit={item.Circuit.Location.locality}
-      country={item.Circuit.Location.country}
-      startDate={item.FirstPractice.date}
-      endDate={item.date}
-    />
-  );
-
-  const keyExtractor = (item: { Circuit: { circuitId: any } }) =>
-    `shedules-${item.Circuit.circuitId}`;
-
-  const laoytProvider = new LayoutProvider(
-    (index) => 0,
-    (type, dim) => {
-      dim.width = 200;
-      dim.height = 50;
-    }
-  );
-
-  let dataProvider = new DataProvider((r1, r2) => {
-    return r1 !== r2;
-  });
+  const renderRaceCards = (races: Race[]) => {
+    return races.map((race) => {
+      return (
+        <TouchableOpacity
+          key={`touch-${race.raceName}`}
+          onPress={() => onRaceCardPressHandler(race.round)}>
+          <RaceCard
+            key={race.raceName}
+            name={race.raceName}
+            circuit={race.Circuit.Location.locality}
+            country={race.Circuit.Location.country}
+            startDate={race.FirstPractice.date}
+            endDate={race.date}
+          />
+        </TouchableOpacity>
+      );
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -122,24 +99,7 @@ export default function Calendar({ navigation }: CalendarProps) {
         </View>
       )}
 
-      <RecyclerListView
-        rowRenderer={renderRaceCards}
-        layoutProvider={laoytProvider}
-        dataProvider={row}
-      />
-
-      {/* <FlatList
-        data={lastRaces}
-        keyExtractor={keyExtractor}
-        renderItem={renderRaceCards}
-        extraData
-        getItemLayout={(data, index) => ({ length: 70, offset: 70 * index, index })}
-        initialNumToRender={8}
-        maxToRenderPerBatch={20}
-        removeClippedSubviews
-      /> */}
-
-      {/* <ScrollView>
+      <ScrollView>
         {nextRaces.length != 0 && (
           <>
             <Text style={[textStyle.headerWhite, styles.header]}>
@@ -156,7 +116,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             {renderRaceCards(lastRaces)}
           </>
         )}
-      </ScrollView> */}
+      </ScrollView>
     </View>
   );
 }

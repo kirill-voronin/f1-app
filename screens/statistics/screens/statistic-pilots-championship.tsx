@@ -40,6 +40,18 @@ const StatisticPilotsChampionship = ({
 
   const keyExtractor = (item: any) => `shedules-${item.season}`;
 
+  const renderPilotCard = ({ item }: { item: StandingsList }) => {
+    const name = `${item.DriverStandings[0].Driver.givenName} ${item.DriverStandings[0].Driver.familyName}`;
+    return (
+      <AllWinnersCard
+        year={item.season}
+        driverName={name}
+        commandName={item.DriverStandings[0].Constructors[0].name}
+        nationality={item.DriverStandings[0].Driver.nationality.replace(" ", "")}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -60,33 +72,10 @@ const StatisticPilotsChampionship = ({
         </View>
       )}
       {champions.length !== 0 && (
-        // <ScrollView>
-        //   {champions.map((year) => {
-        //     const name = `${year.DriverStandings[0].Driver.givenName} ${year.DriverStandings[0].Driver.familyName}`;
-        //     return (
-        //       <AllWinnersCard
-        //         key={year.season}
-        //         year={year.season}
-        //         driverName={name}
-        //         commandName={year.DriverStandings[0].Constructors[0].name}
-        //         nationality={year.DriverStandings[0].Driver.nationality.replace(" ", "")}
-        //       />
-        //     );
-        //   })}
-        // </ScrollView>
         <FlatList
           data={champions}
           keyExtractor={keyExtractor}
-          
-          renderItem={({ item }) => (
-            <AllWinnersCard
-              key={item.season}
-              year={item.season}
-              driverName={item.DriverStandings[0].Driver.driverId}
-              commandName={item.DriverStandings[0].Constructors[0].name}
-              nationality={item.DriverStandings[0].Driver.nationality.replace(" ", "")}
-            />
-          )}
+          renderItem={renderPilotCard}
         />
       )}
     </View>

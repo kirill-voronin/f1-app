@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import axios from "../../../axois/axios";
 import { MRDataRaceResults, Result } from "../../../axois/data-race-results";
 
@@ -24,26 +24,21 @@ const RaceInfoRaceResult = ({ route }: RaceInfoRaceResultProps) => {
     });
   }, [round]);
 
-  const renderPilotsCards = () => {
+  const renderPilotCard = ({ item }: { item: Result }) => {
+    const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
     return (
-      <>
-        {raceResults.map((result, index) => {
-          const name = `${result.Driver.givenName} ${result.Driver.familyName}`;
-          return (
-            <PilotCard
-              key={index}
-              position={result.position}
-              driverName={name}
-              commandName={result.Constructor.name}
-              points={result.points}
-              nationality={result.Driver.nationality}
-              commandId={result.Constructor.constructorId}
-            />
-          );
-        })}
-      </>
+      <PilotCard
+        position={item.position}
+        driverName={name}
+        commandName={item.Constructor.name}
+        points={item.points}
+        nationality={item.Driver.nationality}
+        commandId={item.Constructor.constructorId}
+      />
     );
   };
+
+  const keyExtractor = (item: Result) => `race-${item.Driver.driverId}`;
 
   return (
     <View style={styles.container}>
@@ -52,7 +47,11 @@ const RaceInfoRaceResult = ({ route }: RaceInfoRaceResultProps) => {
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
-      <ScrollView>{renderPilotsCards()}</ScrollView>
+      <FlatList
+        keyExtractor={keyExtractor}
+        data={raceResults}
+        renderItem={renderPilotCard}
+      />
     </View>
   );
 };

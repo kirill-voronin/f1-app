@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import axios from "../../../axois/axios";
 import {
   MRDataQualifyingResults,
@@ -26,26 +26,21 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
     });
   }, [round]);
 
-  const renderPilotsCards = () => {
+  const renderPilotCard = ({ item }: { item: QualifyingResult }) => {
+    const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
     return (
-      <>
-        {qualifyingResults.map((result, index) => {
-          const name = `${result.Driver.givenName} ${result.Driver.familyName}`;
-          return (
-            <PilotCard
-              key={index}
-              position={result.position}
-              driverName={name}
-              commandName={result.Constructor.name}
-              points={""}
-              nationality={result.Driver.nationality}
-              commandId={result.Constructor.constructorId}
-            />
-          );
-        })}
-      </>
+      <PilotCard
+        position={item.position}
+        driverName={name}
+        commandName={item.Constructor.name}
+        points={""}
+        nationality={item.Driver.nationality}
+        commandId={item.Constructor.constructorId}
+      />
     );
   };
+
+  const keyExtractor = (item: QualifyingResult) => `race-${item.Driver.driverId}`;
 
   return (
     <View style={styles.container}>
@@ -54,7 +49,11 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
-      <ScrollView>{renderPilotsCards()}</ScrollView>
+      <FlatList
+        keyExtractor={keyExtractor}
+        data={qualifyingResults}
+        renderItem={renderPilotCard}
+      />
     </View>
   );
 };

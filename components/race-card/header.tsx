@@ -1,7 +1,7 @@
 import moment from "moment";
 import { StyleSheet, Text, View } from "react-native";
 import { textStyle } from "../../style/style";
-import FlagIcons from "../../icons/flag-icons";
+import FlagIcons from "../../icons/flag-icons/flag-icons";
 
 interface RaceCardHeaderProps {
   circuit?: string;
@@ -26,7 +26,6 @@ export default function Header({
         <Text>
           {moment(startDate).format("DD-")}
           {moment(endDate).format("DD MMMM")}
-          {/* {startDate} */}
         </Text>
       </View>
     </View>

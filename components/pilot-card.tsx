@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FlagIcons from "../icons/flag-icons";
+import FlagIcons from "../icons/flag-icons/flag-icons";
 import { colors } from "../style/colors";
 
 interface PilotCardProps {
@@ -27,7 +27,7 @@ export default function PilotCard({
       </View>
       <View style={[styles.commandColorBox, { backgroundColor: colors[commandId] }]} />
       <View style={styles.flagBox}>
-        <FlagIcons nationality={nationality}></FlagIcons>
+        <FlagIcons size="medium" nationality={nationality}></FlagIcons>
       </View>
       <View style={styles.nameBox}>
         <Text style={textStyle.name}>{driverName}</Text>

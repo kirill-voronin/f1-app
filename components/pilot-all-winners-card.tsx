@@ -1,6 +1,6 @@
-import React, { Component, memo } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FlagIcons from "../icons/flag-icons";
+import FlagIcons from "../icons/flag-icons/flag-icons";
 import { colors } from "../style/colors";
 
 interface AllWinnersCardProps {
@@ -22,7 +22,7 @@ const AllWinnersCard = ({
         <Text style={textStyle.position}>{year}</Text>
       </View>
       <View style={styles.nationality}>
-        <FlagIcons nationality={nationality}></FlagIcons>
+        <FlagIcons size="medium" nationality={nationality} />
       </View>
       <View style={styles.nameBox}>
         <Text style={textStyle.name}>{driverName}</Text>
@@ -32,7 +32,7 @@ const AllWinnersCard = ({
   );
 };
 
-export default memo(AllWinnersCard);
+export default AllWinnersCard;
 
 const styles = StyleSheet.create({
   container: {

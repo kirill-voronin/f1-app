@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ScrollView, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { CONSTRUCTORS_STANDING } from "../axois/axios";
 import {
@@ -25,6 +25,22 @@ export default function ConstructorsStanding() {
     });
   }, []);
 
+  const keyExtractor = (item: ConstructorStanding) =>
+    `constructor-${item.Constructor.constructorId}`;
+
+  const renderConstructorCard = ({ item }: { item: ConstructorStanding }) => {
+    return (
+      <CommandCard
+        position={item.position}
+        commandName={item.Constructor.name}
+        points={item.points}
+        nationality={item.Constructor.nationality}
+        commandId={item.Constructor.constructorId}
+        engine={""}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -36,21 +52,27 @@ export default function ConstructorsStanding() {
         </View>
       )}
       {constructors.length != 0 && (
-        <ScrollView>
-          {constructors.map((constructor, index) => {
-            return (
-              <CommandCard
-                key={index}
-                position={constructor.position}
-                commandName={constructor.Constructor.name}
-                points={constructor.points}
-                nationality={constructor.Constructor.nationality}
-                commandId={constructor.Constructor.constructorId}
-                engine={""}
-              />
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          data={constructors}
+          keyExtractor={keyExtractor}
+          renderItem={renderConstructorCard}
+        />
+
+        // <ScrollView>
+        //   {constructors.map((constructor, index) => {
+        //     return (
+        // <CommandCard
+        //   key={index}
+        //   position={constructor.position}
+        //   commandName={constructor.Constructor.name}
+        //   points={constructor.points}
+        //   nationality={constructor.Constructor.nationality}
+        //   commandId={constructor.Constructor.constructorId}
+        //   engine={""}
+        // />
+        //     );
+        //   })}
+        // </ScrollView>
       )}
     </SafeAreaView>
   );

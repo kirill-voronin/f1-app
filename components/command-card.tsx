@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FlagIcons from "../icons/flag-icons";
+import CommandIcons from "../icons/constructor-icons/constructors-icons";
 import { colors } from "../style/colors";
 
 interface CommandCardProps {
@@ -27,11 +27,10 @@ export default function CommandCard({
       </View>
       <View style={[styles.commandColorBox, { backgroundColor: colors[commandId] }]} />
       <View style={styles.flagBox}>
-        <FlagIcons nationality={nationality}></FlagIcons>
+        <CommandIcons name={commandId}></CommandIcons>
       </View>
       <View style={styles.nameBox}>
-        <Text style={textStyle.name}>{commandName}</Text>
-        <Text style={textStyle.command}>{engine}</Text>
+        <Text style={textStyle.constructorCard}>{commandName}</Text>
       </View>
       <View style={styles.pointsBox}>
         <Text style={textStyle.position}>{points}</Text>
@@ -93,5 +92,11 @@ const textStyle = StyleSheet.create({
     color: colors.gray,
     fontStyle: "italic",
     fontSize: 12,
+  },
+  constructorCard: {
+    color: colors.black,
+    fontStyle: "italic",
+    fontWeight: "700",
+    fontSize: 18,
   },
 });
