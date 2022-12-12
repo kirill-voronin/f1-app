@@ -14,6 +14,7 @@ const Navigation = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          animation: "slide_from_right",
         }}>
         <Stack.Screen name="Calendar" component={MaterialBottomMenu} />
         <Stack.Screen name="RaceInformation" component={RaceInformationStack} />
