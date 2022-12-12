@@ -64,9 +64,10 @@ export default function Calendar({ navigation }: CalendarProps) {
     getNextRaces();
   }, [nextRace, isEndSeason]);
 
-  const onRaceCardPressHandler = (round = "0") => {
+  const onRaceCardPressHandler = (round = "0", isSprint = false) => {
     navigation.navigate("RaceInformation", {
       round,
+      isSprint,
     });
   };
 
@@ -75,7 +76,7 @@ export default function Calendar({ navigation }: CalendarProps) {
       return (
         <TouchableOpacity
           key={`touch-${race.raceName}`}
-          onPress={() => onRaceCardPressHandler(race.round)}>
+          onPress={() => onRaceCardPressHandler(race.round, race.Sprint ? true : false)}>
           <RaceCard
             key={race.raceName}
             name={race.raceName}
