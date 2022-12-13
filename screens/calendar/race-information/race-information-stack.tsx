@@ -19,6 +19,12 @@ interface RaceInformationProps {
 const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
   const round = route.params?.round;
   const isSprint = route.params?.isSprint;
+  const qualifyingTime = route.params?.qualifyingTime;
+  const raceTime = route.params?.raceTime;
+  let sprintTime = undefined;
+  if (isSprint) {
+    sprintTime = route.params?.sprintTime;
+  }
 
   const showBack = () => {
     navigation.goBack();
@@ -50,19 +56,19 @@ const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
         <TopTab.Screen
           name="Квалификация"
           component={RaceInfoQualifying}
-          initialParams={{ round: round }}
+          initialParams={{ round: round, qualifyingTime: qualifyingTime }}
         />
         {isSprint && (
           <TopTab.Screen
             name="Спринт"
             component={RaceInfoSprint}
-            initialParams={{ round: round }}
+            initialParams={{ round: round, sprintTime: sprintTime }}
           />
         )}
         <TopTab.Screen
           name="Гонка"
           component={RaceInfoRaceResult}
-          initialParams={{ round: round }}
+          initialParams={{ round: round, raceTime: raceTime }}
         />
       </TopTab.Navigator>
     </SafeAreaView>

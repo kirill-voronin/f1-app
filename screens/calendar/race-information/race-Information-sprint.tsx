@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import axios, { year } from "../../../axois/axios";
 import { MRDataSprintResults, SprintResult } from "../../../axois/data-sprint-results";
+import FutureRace from "../../../components/future-race";
 import PilotCard from "../../../components/pilot-card";
 import { colors } from "../../../style/colors";
 
@@ -13,14 +14,17 @@ const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
   const [sprintResults, setSprintResutls] = useState<SprintResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const round = route.params.round;
+  const sprintTime = route.params?.sprintTime;
 
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(`/${year}/${round}/sprint.json`).then((response) => {
-      const qualifying: MRDataSprintResults = response.data;
-      setSprintResutls(qualifying.MRData.RaceTable.Races[0].SprintResults);
-      setIsLoading(false);
-    });
+    if (!sprintTime) {
+      setIsLoading(true);
+      axios.get(`/${year}/${round}/sprint.json`).then((response) => {
+        const qualifying: MRDataSprintResults = response.data;
+        setSprintResutls(qualifying.MRData.RaceTable.Races[0].SprintResults);
+        setIsLoading(false);
+      });
+    }
   }, [round]);
 
   const renderPilotCard = ({ item }: { item: SprintResult }) => {
@@ -41,6 +45,7 @@ const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
 
   return (
     <View style={styles.container}>
+      {sprintTime && <FutureRace date={sprintTime} />}
       {isLoading && (
         <View style={styles.isLoadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />

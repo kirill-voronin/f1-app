@@ -13,6 +13,7 @@ import Header from "../../components/header";
 import RaceCard from "../../components/race-card/race-card";
 import { textStyle } from "../../style/style";
 import { colors } from "../../style/colors";
+import { getLocalDateTime } from "../../functions/getLocalDate";
 
 interface CalendarProps {
   navigation: any;
@@ -64,19 +65,64 @@ export default function Calendar({ navigation }: CalendarProps) {
     getNextRaces();
   }, [nextRace, isEndSeason]);
 
-  const onRaceCardPressHandler = (round = "0", isSprint = false) => {
+  const onRaceNextCardPressHandler = (
+    isSprint: boolean,
+    qualifyingTime: string,
+    raceTime: string,
+    sprintTime?: string
+  ) => {
+    navigation.navigate("RaceInformation", {
+      isSprint,
+      qualifyingTime,
+      sprintTime,
+      raceTime,
+    });
+  };
+
+  const onRaceLastCardPressHandler = (round = "0", isSprint = false) => {
     navigation.navigate("RaceInformation", {
       round,
       isSprint,
     });
   };
 
-  const renderRaceCards = (races: Race[]) => {
+  const renderLastRaceCards = (races: Race[]) => {
     return races.map((race) => {
       return (
         <TouchableOpacity
           key={`touch-${race.raceName}`}
-          onPress={() => onRaceCardPressHandler(race.round, race.Sprint ? true : false)}>
+          onPress={() =>
+            onRaceLastCardPressHandler(race.round, race.Sprint ? true : false)
+          }>
+          <RaceCard
+            key={race.raceName}
+            name={race.raceName}
+            circuit={race.Circuit.Location.locality}
+            country={race.Circuit.Location.country}
+            startDate={race?.FirstPractice?.date}
+            endDate={race.date}
+          />
+        </TouchableOpacity>
+      );
+    });
+  };
+
+  const renderNextRaceCards = (races: Race[]) => {
+    return races.map((race) => {
+      return (
+        <TouchableOpacity
+          key={`touch-${race.raceName}`}
+          onPress={() => {
+            const isSprint = race.Sprint ? true : false;
+            onRaceNextCardPressHandler(
+              isSprint,
+              getLocalDateTime(race?.Qualifying?.date, race?.Qualifying?.time),
+              getLocalDateTime(race?.date, race?.time),
+              race.Sprint
+                ? getLocalDateTime(race.Sprint.date, race.Sprint.time)
+                : undefined
+            );
+          }}>
           <RaceCard
             key={race.raceName}
             name={race.raceName}
@@ -106,7 +152,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             <Text style={[textStyle.headerWhite, styles.header]}>
               Предстоящие события
             </Text>
-            {renderRaceCards(nextRaces)}
+            {renderNextRaceCards(nextRaces)}
           </>
         )}
         {lastRaces.length != 0 && (
@@ -114,7 +160,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             <Text style={[textStyle.headerWhite, styles.header]}>
               Завершенные события
             </Text>
-            {renderRaceCards(lastRaces)}
+            {renderLastRaceCards(lastRaces)}
           </>
         )}
       </ScrollView>

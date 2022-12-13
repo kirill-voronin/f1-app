@@ -5,6 +5,7 @@ import {
   MRDataQualifyingResults,
   QualifyingResult,
 } from "../../../axois/data-qualifying";
+import FutureRace from "../../../components/future-race";
 import PilotCard from "../../../components/pilot-card";
 import { colors } from "../../../style/colors";
 
@@ -16,14 +17,17 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
   const [qualifyingResults, setQualifyingResutls] = useState<QualifyingResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const round = route.params.round;
+  const qualifyingTime = route.params?.qualifyingTime;
 
   useEffect(() => {
-    setIsLoading(true);
-    axios.get(`/${year}/${round}/qualifying.json`).then((response) => {
-      const qualifying: MRDataQualifyingResults = response.data;
-      setQualifyingResutls(qualifying.MRData.RaceTable.Races[0].QualifyingResults);
-      setIsLoading(false);
-    });
+    if (!qualifyingTime) {
+      setIsLoading(true);
+      axios.get(`/${year}/${round}/qualifying.json`).then((response) => {
+        const qualifying: MRDataQualifyingResults = response.data;
+        setQualifyingResutls(qualifying.MRData.RaceTable.Races[0].QualifyingResults);
+        setIsLoading(false);
+      });
+    }
   }, [round]);
 
   const renderPilotCard = ({ item }: { item: QualifyingResult }) => {
@@ -44,6 +48,7 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
 
   return (
     <View style={styles.container}>
+      {qualifyingTime && <FutureRace date={qualifyingTime} />}
       {isLoading && (
         <View style={styles.isLoadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
