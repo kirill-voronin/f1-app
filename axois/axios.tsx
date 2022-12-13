@@ -4,7 +4,7 @@ export default axios.create({
   baseURL: "http://ergast.com/api/f1",
 });
 
-export const year = "current";
+export const year = "2023";
 
 export const NEXT_RACE = `/current/next.json`;
 export const ALL_RACES = `/${year}.json`;

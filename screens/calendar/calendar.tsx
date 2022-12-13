@@ -92,7 +92,7 @@ export default function Calendar({ navigation }: CalendarProps) {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header season={nextRace?.season} />
 
       {isLoading && (
         <View style={styles.isLoadingContainer}>

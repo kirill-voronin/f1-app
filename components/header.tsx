@@ -2,10 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { colors } from "../style/colors";
 import NextRace from "./next-race/next-race";
 
-export default function Header() {
+interface HeaderProps {
+  season?: string;
+}
+
+export default function Header({ season = "" }: HeaderProps) {
   return (
     <View style={styles.header}>
-      <Text style={styles.season}>Сезон 2022</Text>
+      <Text style={styles.season}>Сезон {season}</Text>
       <NextRace />
     </View>
   );
