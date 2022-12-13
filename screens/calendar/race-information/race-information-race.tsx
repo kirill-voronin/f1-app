@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
-import axios from "../../../axois/axios";
+import axios, { year } from "../../../axois/axios";
 import { MRDataRaceResults, Result } from "../../../axois/data-race-results";
 
 import PilotCard from "../../../components/pilot-card";
@@ -17,7 +17,7 @@ const RaceInfoRaceResult = ({ route }: RaceInfoRaceResultProps) => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`/current/${round}/results.json`).then((response) => {
+    axios.get(`/${year}/${round}/results.json`).then((response) => {
       const race: MRDataRaceResults = response.data;
       setRaceResutls(race.MRData.RaceTable.Races[0].Results);
       setIsLoading(false);

@@ -56,7 +56,7 @@ export default function Calendar({ navigation }: CalendarProps) {
 
         setNextRaces(nextRaces);
         setLastRaces(lastRaces);
-        if (lastRaces.length != 0) {
+        if (lastRaces.length != 0 || nextRaces.length != 0) {
           setIsLoading(false);
         }
       });
@@ -82,7 +82,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             name={race.raceName}
             circuit={race.Circuit.Location.locality}
             country={race.Circuit.Location.country}
-            startDate={race.FirstPractice.date}
+            startDate={race?.FirstPractice?.date}
             endDate={race.date}
           />
         </TouchableOpacity>

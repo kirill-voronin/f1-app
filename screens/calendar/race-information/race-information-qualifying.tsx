@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
-import axios from "../../../axois/axios";
+import axios, { year } from "../../../axois/axios";
 import {
   MRDataQualifyingResults,
   QualifyingResult,
@@ -19,7 +19,7 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`/current/${round}/qualifying.json`).then((response) => {
+    axios.get(`/${year}/${round}/qualifying.json`).then((response) => {
       const qualifying: MRDataQualifyingResults = response.data;
       setQualifyingResutls(qualifying.MRData.RaceTable.Races[0].QualifyingResults);
       setIsLoading(false);
