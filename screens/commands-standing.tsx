@@ -11,7 +11,7 @@ import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
 export default function ConstructorsStanding() {
-  const [constructors, setConstructors] = useState<ConstructorStanding[]>([]);
+  const [constructors, setConstructors] = useState<ConstructorStanding[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function ConstructorsStanding() {
     axios.get(CONSTRUCTORS_STANDING).then((response) => {
       const constructors: MRDataConstructorsStanding = response.data;
       setConstructors(
-        constructors.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+        constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings
       );
       setIsLoading(false);
     });
@@ -46,33 +46,24 @@ export default function ConstructorsStanding() {
       <View style={styles.header}>
         <Text style={textStyle.headerWhite}>Рейтинг конструкторов</Text>
       </View>
+      {!constructors && (
+        <View style={styles.isLoadingContainer}>
+          <Text style={styles.notData}>
+            После начала сезона здесь будет отображаться кубок конструкторов
+          </Text>
+        </View>
+      )}
       {isLoading && (
         <View style={styles.isLoadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
-      {constructors.length != 0 && (
+      {constructors?.length != 0 && (
         <FlatList
           data={constructors}
           keyExtractor={keyExtractor}
           renderItem={renderConstructorCard}
         />
-
-        // <ScrollView>
-        //   {constructors.map((constructor, index) => {
-        //     return (
-        // <CommandCard
-        //   key={index}
-        //   position={constructor.position}
-        //   commandName={constructor.Constructor.name}
-        //   points={constructor.points}
-        //   nationality={constructor.Constructor.nationality}
-        //   commandId={constructor.Constructor.constructorId}
-        //   engine={""}
-        // />
-        //     );
-        //   })}
-        // </ScrollView>
       )}
     </SafeAreaView>
   );
@@ -95,5 +86,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
+    marginHorizontal: 4,
+  },
+  notData: {
+    fontSize: 20,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "700",
   },
 });
