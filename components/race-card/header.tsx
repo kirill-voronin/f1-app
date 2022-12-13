@@ -13,9 +13,21 @@ interface RaceCardHeaderProps {
 export default function Header({
   circuit,
   country,
-  startDate = "2022-11-18",
-  endDate = "2022-11-20",
+  startDate = "",
+  endDate = "",
 }: RaceCardHeaderProps) {
+  const getStartDate = () => {
+    if (startDate === "") {
+      return "";
+    } else {
+      return moment(startDate).format("DD-");
+    }
+  };
+
+  const getEndDate = () => {
+    return moment(endDate).format("DD MMMM");
+  };
+
   return (
     <View style={style.container}>
       <View style={style.icon}>
@@ -24,8 +36,8 @@ export default function Header({
       <View style={style.textContainer}>
         <Text style={textStyle.mainSmall}>{circuit}</Text>
         <Text>
-          {moment(startDate).format("DD-")}
-          {moment(endDate).format("DD MMMM")}
+          {getStartDate()}
+          {getEndDate()}
         </Text>
       </View>
     </View>
