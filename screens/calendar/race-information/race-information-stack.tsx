@@ -47,7 +47,7 @@ const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
       <TopTab.Navigator
         screenOptions={{
           tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: colors.primary,
+          tabBarInactiveTintColor: colors.white,
           tabBarLabelStyle: { fontSize: 12 },
           tabBarStyle: { backgroundColor: colors.transparent },
           tabBarItemStyle: { width: "auto" },
