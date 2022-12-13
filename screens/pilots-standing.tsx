@@ -8,14 +8,14 @@ import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
 export default function PilotsStanding() {
-  const [pilots, setPilots] = useState<DriverStanding[]>([]);
+  const [pilots, setPilots] = useState<DriverStanding[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
     axios.get(PILOTS_STANDING).then((response) => {
       const thisNextRace: MRDataPilotsStanding = response.data;
-      setPilots(thisNextRace.MRData.StandingsTable.StandingsLists[0].DriverStandings);
+      setPilots(thisNextRace.MRData.StandingsTable.StandingsLists[0]?.DriverStandings);
       setIsLoading(false);
     });
   }, []);
@@ -41,12 +41,19 @@ export default function PilotsStanding() {
       <View style={styles.header}>
         <Text style={textStyle.headerWhite}>Рейтинг пилотов</Text>
       </View>
+      {!pilots && (
+        <View style={styles.isLoadingContainer}>
+          <Text style={styles.notData}>
+            После начала сезона здесь будет отображаться личный зачет
+          </Text>
+        </View>
+      )}
       {isLoading && (
         <View style={styles.isLoadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
       )}
-      {pilots.length != 0 && (
+      {pilots?.length != 0 && (
         <FlatList
           data={pilots}
           keyExtractor={keyExtractor}
@@ -74,5 +81,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
+  },
+  notData: {
+    fontSize: 20,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "700",
   },
 });
