@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "finfo",
+    "name": "Formula Info",
     "slug": "FInfo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,10 +25,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ee191f"
       },
-      "package": "com.f1.app"
+      "package": "com.formula.info.app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptiveIcon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "46c2711c-1bf3-4a07-8400-71f2a7d26ec7"
+      }
     }
   }
 }
