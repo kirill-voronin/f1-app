@@ -28,11 +28,16 @@ export default function Calendar({ navigation }: CalendarProps) {
 
   useEffect(() => {
     const getNextRace = async () => {
-      await axios.get(NEXT_RACE).then((response) => {
-        const thisNextRace: MRDataRace = response.data;
-        if (thisNextRace.MRData.RaceTable.Races.length === 0) setIsEndSeason(true);
-        else setNextRace(thisNextRace.MRData.RaceTable.Races[0]);
-      });
+      await axios
+        .get(NEXT_RACE)
+        .then((response) => {
+          const thisNextRace: MRDataRace = response.data;
+          if (thisNextRace.MRData.RaceTable.Races.length === 0) setIsEndSeason(true);
+          else setNextRace(thisNextRace.MRData.RaceTable.Races[0]);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
     };
     getNextRace();
   }, []);
@@ -40,27 +45,32 @@ export default function Calendar({ navigation }: CalendarProps) {
   useEffect(() => {
     const getNextRaces = async () => {
       setIsLoading(true);
-      await axios.get(ALL_RACES).then((response) => {
-        const allRaces: MRDataRace = response.data;
-        let nextRaces: Race[] = [];
-        let lastRaces: Race[] = [];
-        if (!isEndSeason) {
-          nextRaces = allRaces.MRData.RaceTable.Races.filter(
-            (race) => Number(race.round) > Number(nextRace?.round)
-          );
-          lastRaces = allRaces.MRData.RaceTable.Races.filter(
-            (race) => Number(race.round) < Number(nextRace?.round)
-          );
-        } else {
-          lastRaces = allRaces.MRData.RaceTable.Races;
-        }
+      await axios
+        .get(ALL_RACES)
+        .then((response) => {
+          const allRaces: MRDataRace = response.data;
+          let nextRaces: Race[] = [];
+          let lastRaces: Race[] = [];
+          if (!isEndSeason) {
+            nextRaces = allRaces.MRData.RaceTable.Races.filter(
+              (race) => Number(race.round) > Number(nextRace?.round)
+            );
+            lastRaces = allRaces.MRData.RaceTable.Races.filter(
+              (race) => Number(race.round) < Number(nextRace?.round)
+            );
+          } else {
+            lastRaces = allRaces.MRData.RaceTable.Races;
+          }
 
-        setNextRaces(nextRaces);
-        setLastRaces(lastRaces);
-        if (lastRaces.length != 0 || nextRaces.length != 0) {
+          setNextRaces(nextRaces);
+          setLastRaces(lastRaces);
+          if (lastRaces.length != 0 || nextRaces.length != 0) {
+            setIsLoading(false);
+          }
+        })
+        .catch(() => {
           setIsLoading(false);
-        }
-      });
+        });
     };
     getNextRaces();
   }, [nextRace, isEndSeason]);

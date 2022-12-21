@@ -14,6 +14,7 @@ import { textStyle } from "../../../style/style";
 import { MRDataAllWinners, StandingsList } from "../../../axois/data-all-winners";
 import AllWinnersCard from "../../../components/pilot-all-winners-card";
 import ControlIcons from "../../../icons/controls-icons";
+import ErrorComponent from "../../../components/error";
 
 interface StatisticPilotsChampionshipProps {
   navigation: any;
@@ -24,6 +25,7 @@ const StatisticPilotsChampionship = ({
 }: StatisticPilotsChampionshipProps) => {
   const [champions, setChampions] = useState<StandingsList[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const showBack = () => {
     navigation.goBack();
@@ -31,11 +33,17 @@ const StatisticPilotsChampionship = ({
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(ALL_PILOTS_CHAMPIONS_STANDING).then((response) => {
-      const thisChampions: MRDataAllWinners = response.data;
-      setChampions(thisChampions.MRData.StandingsTable.StandingsLists.reverse());
-      setIsLoading(false);
-    });
+    axios
+      .get(ALL_PILOTS_CHAMPIONS_STANDING)
+      .then((response) => {
+        const thisChampions: MRDataAllWinners = response.data;
+        setChampions(thisChampions.MRData.StandingsTable.StandingsLists.reverse());
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsError(true);
+      });
   }, []);
 
   const keyExtractor = (item: any) => `shedules-${item.season}`;
@@ -66,6 +74,7 @@ const StatisticPilotsChampionship = ({
           </View>
         </View>
       </View>
+      {isError && <ErrorComponent color="#fff" />}
       {isLoading && (
         <View style={styles.isLoadingContainer}>
           <ActivityIndicator size="large" color={colors.primary} />

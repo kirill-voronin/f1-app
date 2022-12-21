@@ -7,22 +7,30 @@ import {
   MRDataConstructorsStanding,
 } from "../axois/data-constructors";
 import CommandCard from "../components/command-card";
+import ErrorComponent from "../components/error";
 import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
 export default function ConstructorsStanding() {
   const [constructors, setConstructors] = useState<ConstructorStanding[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(CONSTRUCTORS_STANDING).then((response) => {
-      const constructors: MRDataConstructorsStanding = response.data;
-      setConstructors(
-        constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings
-      );
-      setIsLoading(false);
-    });
+    axios
+      .get(CONSTRUCTORS_STANDING)
+      .then((response) => {
+        const constructors: MRDataConstructorsStanding = response.data;
+        setConstructors(
+          constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings
+        );
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsError(true);
+      });
   }, []);
 
   const keyExtractor = (item: ConstructorStanding) =>
@@ -46,6 +54,7 @@ export default function ConstructorsStanding() {
       <View style={styles.header}>
         <Text style={textStyle.headerWhite}>Рейтинг конструкторов</Text>
       </View>
+      {isError && <ErrorComponent color="#fff" />}
       {!constructors && (
         <View style={styles.isLoadingContainer}>
           <Text style={styles.notData}>

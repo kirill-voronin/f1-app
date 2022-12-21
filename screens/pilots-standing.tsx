@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-nativ
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
+import ErrorComponent from "../components/error";
 import PilotCard from "../components/pilot-card";
 import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
@@ -10,14 +11,21 @@ import { textStyle } from "../style/style";
 export default function PilotsStanding() {
   const [pilots, setPilots] = useState<DriverStanding[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(PILOTS_STANDING).then((response) => {
-      const thisNextRace: MRDataPilotsStanding = response.data;
-      setPilots(thisNextRace.MRData.StandingsTable.StandingsLists[0]?.DriverStandings);
-      setIsLoading(false);
-    });
+    axios
+      .get(PILOTS_STANDING)
+      .then((response) => {
+        const thisNextRace: MRDataPilotsStanding = response.data;
+        setPilots(thisNextRace.MRData.StandingsTable.StandingsLists[0]?.DriverStandings);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsError(true);
+      });
   }, []);
 
   const keyExtractor = (item: DriverStanding) => `pilot-${item.Driver.driverId}`;
@@ -41,6 +49,7 @@ export default function PilotsStanding() {
       <View style={styles.header}>
         <Text style={textStyle.headerWhite}>Рейтинг пилотов</Text>
       </View>
+      {isError && <ErrorComponent color="#fff" />}
       {!pilots && (
         <View style={styles.isLoadingContainer}>
           <Text style={styles.notData}>
