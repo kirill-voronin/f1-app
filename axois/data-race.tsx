@@ -30,7 +30,7 @@ export interface Race {
   SecondPractice: DateTime;
   ThirdPractice: DateTime;
   Qualifying: DateTime;
-  Spint?: DateTime;
+  Sprint?: DateTime;
 }
 
 export interface Circuit {

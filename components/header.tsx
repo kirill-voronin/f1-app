@@ -1,14 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { textStyle } from '../style/style';
-import NextRace from './next-race/next-race';
+import { StyleSheet, Text, View } from "react-native";
+import { colors } from "../style/colors";
+import NextRace from "./next-race/next-race";
 
-export default function Header() {
+interface HeaderProps {
+  season?: string;
+}
+
+export default function Header({ season = "" }: HeaderProps) {
   return (
     <View style={styles.header}>
-      <Text style={styles.season}>
-        Сезон 2022
-      </Text>
+      <Text style={styles.season}>Сезон {season}</Text>
       <NextRace />
     </View>
   );
@@ -16,7 +17,8 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#FF0000",
+    backgroundColor: colors.primary,
+    elevation: 4,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
     height: "50%",
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
   season: {
     textAlign: "center",
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: "700",
     color: "#FFFFFF",
     marginTop: 25,
   },

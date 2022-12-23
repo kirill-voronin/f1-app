@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FInfo",
+    "name": "Formula Info",
     "slug": "FInfo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ee191f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,12 +23,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#ee191f"
       },
-      "package": "com.f1.app"
+      "package": "com.formula.info.app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptiveIcon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "46c2711c-1bf3-4a07-8400-71f2a7d26ec7"
+      }
     }
   }
 }
