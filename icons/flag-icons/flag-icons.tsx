@@ -21,6 +21,7 @@ import {
   Netherland,
   Netral,
   NewZeland,
+  Qatar,
   SaudiArabia,
   Singapore,
   Sizes,
@@ -106,6 +107,7 @@ export default function FlagIcons({ name, size, nationality }: IconsProps) {
       case "Japan":
         return <Japan size={size} />;
       case "USA":
+      case "United States":
         return <USA size={size} />;
       case "Mexico":
         return <Mexico size={size} />;
@@ -129,6 +131,8 @@ export default function FlagIcons({ name, size, nationality }: IconsProps) {
         return <Thailand size={size} />;
       case "Hungary":
         return <Hungary size={size} />;
+      case "Qatar":
+        return <Qatar size={size} />;
       default:
         return <Netral size={size} />;
     }
