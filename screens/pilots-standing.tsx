@@ -36,10 +36,10 @@ export default function PilotsStanding() {
       <PilotCard
         position={item.position}
         driverName={name}
-        commandName={item.Constructors[0].name}
+        commandName={item?.Constructors?.[0]?.name ?? ""}
         points={item.points}
         nationality={item.Driver.nationality}
-        commandId={item.Constructors[0].constructorId}
+        commandId={item?.Constructors?.[0]?.constructorId ?? ""}
       />
     );
   };

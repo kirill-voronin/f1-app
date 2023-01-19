@@ -2,7 +2,7 @@
   "expo": {
     "name": "Formula Info",
     "slug": "FInfo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ee191f"
       },
-      "package": "com.formula.info.app"
+      "package": "com.formula.info.app",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/adaptiveIcon.png"

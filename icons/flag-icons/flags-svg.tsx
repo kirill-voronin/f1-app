@@ -42,6 +42,23 @@ export const Template = ({ size }: IconProps) => {
   );
 };
 
+export const Qatar = ({ size }: IconProps) => {
+  return (
+    <Svg
+      id="Qatar"
+      width={sizes[size].width}
+      height={sizes[size].height}
+      viewBox="0 0 150 100">
+      <Path d="M0 0H150V100H0" fill="#8A1538" />
+      <Path
+        d="M44 100H0V0H44L56 5.55556L44 11.1111L56 16.6667L44 22.2222L56 27.7778L44 33.3333L56 38.8889L44 44.4444L56 50L44 55.5556L56 61.1111L44 66.6667L56 72.2222L44 77.7778L56 83.3333L44 88.8889L56 94.4444L44 100Z"
+        fill="white"
+      />
+      <Rect x="0.5" y="0.5" width="149" height="99" stroke="black" />
+    </Svg>
+  );
+};
+
 export const Hungary = ({ size }: IconProps) => {
   return (
     <Svg

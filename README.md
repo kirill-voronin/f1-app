@@ -1,15 +1,11 @@
-# Formula App
+# Formula Info
 
-The Formula 1 mobile application is designed for convenient storage of information on the championship in one place.
+Информационное мобильне приложение по кольцевым гонкам "Формула 1"
 
+## Функционал
 
-## Current features
-- Date of the next race
-
-## Future opportunities
-
-- Calendar
-- Pilots ' standings
-- Team standings
-- Pilot statistics
-- Team statistics
+- Календарь гонок
+- Зачет пилотов
+- Кубок конструкторов
+- Результаты гонок
+- Статистика
