@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ee191f"
@@ -36,5 +37,13 @@
         "projectId": "46c2711c-1bf3-4a07-8400-71f2a7d26ec7"
       }
     }
-  }
+  },
+  "plugins": [
+    [
+      "expo-notifications",
+      {
+        "icon": "./assets/notification-icon.png"
+      }
+    ]
+  ]
 }
