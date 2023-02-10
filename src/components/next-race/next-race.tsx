@@ -5,10 +5,10 @@ import axios, { NEXT_RACE } from "../../axois/axios";
 import { textStyle } from "../../style/style";
 import RaceTime from "./race-time";
 import { colors } from "../../style/colors";
-import ErrorComponent from "../error";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
-import Winter from "../winter";
 import { last } from "../../mock/last";
+import ErrorComponent from "../error";
+import Winter from "../winter";
 
 export default function NextRace() {
   const [nextRace, setNextRace] = useState<Race>();
