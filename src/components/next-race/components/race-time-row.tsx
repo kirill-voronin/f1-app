@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { textStyle } from "../../style/style";
+import { textStyle } from "../../../style/style";
 import moment from "moment";
 import "moment/locale/ru";
 

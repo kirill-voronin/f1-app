@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Race } from "../../axois/data-race";
+import { Race } from "../../../axois/data-race";
 import RaceTimeRow from "./race-time-row";
 
 interface RaceTimeProps {

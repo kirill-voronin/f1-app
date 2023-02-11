@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { MRDataRace, Race } from "../../axois/data-race";
+import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import axios, { NEXT_RACE } from "../../axois/axios";
-import { textStyle } from "../../style/style";
-import RaceTime from "./race-time";
-import { colors } from "../../style/colors";
+import { MRDataRace, Race } from "../../axois/data-race";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
-import { last } from "../../mock/last";
+import { colors } from "../../style/colors";
+import { textStyle } from "../../style/style";
 import ErrorComponent from "../error";
 import Winter from "../winter";
+import RaceTime from "./components/race-time";
 
-export default function NextRace() {
+interface HeaderProps {
+  season?: string;
+}
+
+export default function NextRace({ season = "" }: HeaderProps) {
   const [nextRace, setNextRace] = useState<Race>();
   const [isLoad, setIsLoad] = useState<boolean>(true);
   const [isEndSeason, setIsEndSeason] = useState<boolean>(false);
@@ -35,30 +39,55 @@ export default function NextRace() {
   }, []);
 
   return (
-    <View style={style.container}>
-      {isLoad && (
-        <View style={style.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
-      {nextRace && (
-        <>
-          <View>
-            <Text style={[style.nextRace, textStyle.header]}>Следующая гонка</Text>
-            <View style={style.img}>
-              <FlagIcons size="medium" name={nextRace?.Circuit.Location.country} />
-              <Text style={style.granPri}>{nextRace?.raceName}</Text>
-            </View>
+    <View style={styles.header}>
+      <Text style={styles.season}>Сезон {season}</Text>
+      <View style={style.container}>
+        {isLoad && (
+          <View style={style.isLoadingContainer}>
+            <ActivityIndicator size="large" color={colors.primary} />
           </View>
-          <View style={style.line} />
-          <RaceTime nextRace={nextRace} />
-        </>
-      )}
-      {!nextRace && !isLoad && !isEndSeason && <ErrorComponent />}
-      {isEndSeason && <Winter />}
+        )}
+        {nextRace && (
+          <>
+            <View>
+              <Text style={[style.nextRace, textStyle.header]}>Следующая гонка</Text>
+              <View style={style.img}>
+                <FlagIcons size="medium" name={nextRace?.Circuit.Location.country} />
+                <Text style={style.granPri}>{nextRace?.raceName}</Text>
+              </View>
+            </View>
+            <View style={style.line} />
+            <RaceTime nextRace={nextRace} />
+          </>
+        )}
+        {!nextRace && !isLoad && !isEndSeason && <ErrorComponent />}
+        {isEndSeason && <Winter />}
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: colors.primary,
+    elevation: 4,
+    borderBottomEndRadius: 20,
+    borderBottomStartRadius: 20,
+    height: "50%",
+  },
+  season: {
+    textAlign: "center",
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    marginTop: 25,
+  },
+  progress: {
+    marginTop: 100,
+    textAlign: "center",
+    color: "white",
+  },
+});
 
 const style = StyleSheet.create({
   container: {

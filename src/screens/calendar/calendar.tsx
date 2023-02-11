@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import { MRDataRace, Race } from "../../axois/data-race";
 import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
-import Header from "../../components/header";
 import RaceCard from "../../components/race-card/race-card";
 import { textStyle } from "../../style/style";
 import { colors } from "../../style/colors";
 import { getLocalDateTime } from "../../functions/getLocalDate";
+import NextRace from "../../components/next-race/next-race";
 
 interface CalendarProps {
   navigation: any;
@@ -148,7 +148,7 @@ export default function Calendar({ navigation }: CalendarProps) {
 
   return (
     <View style={styles.container}>
-      <Header season={nextRace?.season} />
+      <NextRace season={nextRace?.season} />
 
       {isLoading && (
         <View style={styles.isLoadingContainer}>
