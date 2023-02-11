@@ -1,13 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ControlIcons from "../../../icons/controls-icons";
 import { colors } from "../../../style/colors";
-import { textStyle } from "../../../style/style";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import RaceInfoQualifying from "./race-information-qualifying";
 import RaceInfoRaceResult from "./race-information-race";
 import RaceInfoSprint from "./race-Information-sprint";
+import Header from "../../../components/header";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -26,24 +25,9 @@ const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
     sprintTime = route.params?.sprintTime;
   }
 
-  const showBack = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.flexHeaderContainer}>
-          <View style={styles.flexIconContainer}>
-            <TouchableOpacity onPress={showBack} accessibilityRole="button">
-              <ControlIcons name="back" size="buttonBack"></ControlIcons>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.flexTextContainer}>
-            <Text style={textStyle.headerWhite}>Информация о гонке</Text>
-          </View>
-        </View>
-      </View>
+      <Header withBackButton navigtion={navigation} />
       <TopTab.Navigator
         screenOptions={{
           tabBarActiveTintColor: colors.primary,
@@ -79,26 +63,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.secondary,
-  },
-  header: {
-    height: 60,
-    backgroundColor: colors.primary,
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
-  },
-  flexHeaderContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  flexIconContainer: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  flexTextContainer: {
-    flex: 7,
-    justifyContent: "center",
-    alignItems: "flex-start",
   },
 });
 

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import React from "react";
+import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import Header from "../../components/header";
 import StatisticCard from "../../components/statistic-card";
 import { colors } from "../../style/colors";
-import { textStyle } from "../../style/style";
 
 const StatisticAll = ({ navigation }: any) => {
   const onStatisticPressHandler = () => {
@@ -11,9 +11,7 @@ const StatisticAll = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={textStyle.headerWhite}>Статистика</Text>
-      </View>
+      <Header />
       <TouchableOpacity onPress={onStatisticPressHandler}>
         <StatisticCard name={"wins-all-time"} title={"Чемпионы мира"}></StatisticCard>
       </TouchableOpacity>
@@ -26,13 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     backgroundColor: colors.secondary,
-  },
-  header: {
-    height: 60,
-    backgroundColor: colors.primary,
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
-    justifyContent: "center",
   },
 });
 
