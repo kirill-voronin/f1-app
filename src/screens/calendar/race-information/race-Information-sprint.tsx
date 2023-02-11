@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import axios, { year } from "../../../axois/axios";
 import { MRDataSprintResults, SprintResult } from "../../../axois/data-sprint-results";
 import FutureRace from "../../../components/future-race";
+import LoadingComponent from "../../../components/loading";
 import PilotCard from "../../../components/pilot-card";
 import { colors } from "../../../style/colors";
 
@@ -46,11 +47,7 @@ const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
   return (
     <View style={styles.container}>
       {sprintTime && <FutureRace date={sprintTime} />}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       <FlatList
         keyExtractor={keyExtractor}
         data={sprintResults}

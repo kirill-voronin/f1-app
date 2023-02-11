@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
 import axios, { NEXT_RACE } from "../../axois/axios";
 import { MRDataRace, Race } from "../../axois/data-race";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";
 import { textStyle } from "../../style/style";
 import ErrorComponent from "../error";
+import LoadingComponent from "../loading";
 import Winter from "../winter";
 import RaceTime from "./components/race-time";
 
@@ -16,12 +16,12 @@ interface HeaderProps {
 
 export default function NextRace({ season = "" }: HeaderProps) {
   const [nextRace, setNextRace] = useState<Race>();
-  const [isLoad, setIsLoad] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isEndSeason, setIsEndSeason] = useState<boolean>(false);
 
   useEffect(() => {
     const getData = async () => {
-      setIsLoad(true);
+      setIsLoading(true);
       await axios
         .get(NEXT_RACE)
         .then((response) => {
@@ -29,10 +29,10 @@ export default function NextRace({ season = "" }: HeaderProps) {
           if (data.MRData.RaceTable.Races.length === 0) setIsEndSeason(true);
           else setNextRace(data.MRData.RaceTable.Races[0]);
           // setNextRace(last.MRData.RaceTable.Races[0]);
-          setIsLoad(false);
+          setIsLoading(false);
         })
         .catch((err) => {
-          setIsLoad(false);
+          setIsLoading(false);
         });
     };
     getData();
@@ -42,11 +42,7 @@ export default function NextRace({ season = "" }: HeaderProps) {
     <View style={styles.header}>
       <Text style={styles.season}>Сезон {season}</Text>
       <View style={style.container}>
-        {isLoad && (
-          <View style={style.isLoadingContainer}>
-            <ActivityIndicator size="large" color={colors.primary} />
-          </View>
-        )}
+        <LoadingComponent isLoading={isLoading} />
         {nextRace && (
           <>
             <View>
@@ -60,7 +56,7 @@ export default function NextRace({ season = "" }: HeaderProps) {
             <RaceTime nextRace={nextRace} />
           </>
         )}
-        {!nextRace && !isLoad && !isEndSeason && <ErrorComponent />}
+        {!nextRace && !isLoading && !isEndSeason && <ErrorComponent />}
         {isEndSeason && <Winter />}
       </View>
     </View>

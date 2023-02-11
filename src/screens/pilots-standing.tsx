@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
 import ErrorComponent from "../components/error";
+import LoadingComponent from "../components/loading";
 import PilotCard from "../components/pilot-card";
 import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
@@ -57,11 +58,7 @@ export default function PilotsStanding() {
           </Text>
         </View>
       )}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       {pilots?.length != 0 && (
         <FlatList
           data={pilots}

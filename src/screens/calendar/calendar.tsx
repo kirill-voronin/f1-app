@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MRDataRace, Race } from "../../axois/data-race";
 import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
 import RaceCard from "../../components/race-card/race-card";
 import { textStyle } from "../../style/style";
-import { colors } from "../../style/colors";
 import { getLocalDateTime } from "../../functions/getLocalDate";
 import NextRace from "../../components/next-race/next-race";
+import LoadingComponent from "../../components/loading";
 
 interface CalendarProps {
   navigation: any;
@@ -149,13 +142,7 @@ export default function Calendar({ navigation }: CalendarProps) {
   return (
     <View style={styles.container}>
       <NextRace season={nextRace?.season} />
-
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
-
+      <LoadingComponent isLoading={isLoading} />
       <ScrollView>
         {nextRaces.length != 0 && (
           <>

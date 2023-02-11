@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { CONSTRUCTORS_STANDING } from "../axois/axios";
 import {
@@ -8,6 +8,7 @@ import {
 } from "../axois/data-constructors";
 import CommandCard from "../components/command-card";
 import ErrorComponent from "../components/error";
+import LoadingComponent from "../components/loading";
 import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
@@ -62,11 +63,7 @@ export default function ConstructorsStanding() {
           </Text>
         </View>
       )}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       {constructors?.length != 0 && (
         <FlatList
           data={constructors}

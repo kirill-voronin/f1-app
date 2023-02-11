@@ -1,13 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../axois/axios";
 import { colors } from "../../../style/colors";
 import { textStyle } from "../../../style/style";
@@ -15,6 +7,7 @@ import { MRDataAllWinners, StandingsList } from "../../../axois/data-all-winners
 import AllWinnersCard from "../../../components/pilot-all-winners-card";
 import ControlIcons from "../../../icons/controls-icons";
 import ErrorComponent from "../../../components/error";
+import LoadingComponent from "../../../components/loading";
 
 interface StatisticPilotsChampionshipProps {
   navigation: any;
@@ -75,11 +68,7 @@ const StatisticPilotsChampionship = ({
         </View>
       </View>
       {isError && <ErrorComponent color="#fff" />}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       {champions.length !== 0 && (
         <FlatList
           data={champions}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import axios, { year } from "../../../axois/axios";
 import {
   MRDataQualifyingResults,
   QualifyingResult,
 } from "../../../axois/data-qualifying";
 import FutureRace from "../../../components/future-race";
+import LoadingComponent from "../../../components/loading";
 import PilotCard from "../../../components/pilot-card";
 import { colors } from "../../../style/colors";
 
@@ -49,11 +50,7 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
   return (
     <View style={styles.container}>
       {qualifyingTime && <FutureRace date={qualifyingTime} />}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       <FlatList
         keyExtractor={keyExtractor}
         data={qualifyingResults}
@@ -68,11 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     backgroundColor: colors.secondary,
-  },
-  isLoadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
   },
 });
 
