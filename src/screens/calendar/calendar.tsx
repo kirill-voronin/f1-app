@@ -104,6 +104,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             country={race.Circuit.Location.country}
             startDate={race?.FirstPractice?.date}
             endDate={race.date}
+            isSprint={race.Sprint ? true : false}
           />
         </TouchableOpacity>
       );
@@ -133,6 +134,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             country={race.Circuit.Location.country}
             startDate={race?.FirstPractice?.date}
             endDate={race.date}
+            isSprint={race.Sprint ? true : false}
           />
         </TouchableOpacity>
       );

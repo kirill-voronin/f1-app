@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import ControlIcons from "../icons/controls-icons";
 import FlagIcons from "../icons/flag-icons/flag-icons";
+import { colors } from "../style/colors";
 import { textStyle } from "../style/style";
 
 interface RaceCardProps {
@@ -11,6 +11,7 @@ interface RaceCardProps {
   country?: string;
   startDate?: string;
   endDate?: string;
+  isSprint?: boolean;
 }
 
 const RaceCard = ({
@@ -19,6 +20,7 @@ const RaceCard = ({
   country,
   endDate = "",
   startDate = "",
+  isSprint = false,
 }: RaceCardProps) => {
   const getStartDate = () => {
     if (startDate === "") {
@@ -48,7 +50,7 @@ const RaceCard = ({
       </View>
       <View style={style.footer}>
         <Text style={textStyle.header}>{name}</Text>
-        <ControlIcons name="more-information" />
+        {isSprint && <Text style={style.sprint}>Sprint</Text>}
       </View>
     </View>
   );
@@ -83,8 +85,16 @@ const style = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-between",
+    alignItems: "center",
+
     marginStart: 10,
     marginEnd: 10,
-    marginTop: 7,
+    marginTop: -5,
+  },
+  sprint: {
+    fontSize: 16,
+    color: colors.primary,
+    fontStyle: "italic",
+    fontWeight: "700",
   },
 });
