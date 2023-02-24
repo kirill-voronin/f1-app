@@ -47,7 +47,7 @@ export default function PilotsStanding() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="Зачет пилотов" />
       {isError && <ErrorComponent color="#fff" />}
       {!pilots && (
         <View style={styles.isLoadingContainer}>

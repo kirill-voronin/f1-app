@@ -50,7 +50,7 @@ const StatisticPilotsChampionship = ({
 
   return (
     <View style={styles.container}>
-      <Header withBackButton navigtion={navigation} />
+      <Header title="Чемпионы мира" withBackButton navigtion={navigation} />
       {isError && <ErrorComponent color="#fff" />}
       <LoadingComponent isLoading={isLoading} />
       {champions.length !== 0 && (

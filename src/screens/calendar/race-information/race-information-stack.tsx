@@ -27,7 +27,7 @@ const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header withBackButton navigtion={navigation} />
+      <Header title="Информация о гонке" withBackButton navigtion={navigation} />
       <TopTab.Navigator
         screenOptions={{
           tabBarActiveTintColor: colors.primary,

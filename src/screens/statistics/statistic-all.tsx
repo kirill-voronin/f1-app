@@ -11,7 +11,7 @@ const StatisticAll = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="Статистика" />
       <TouchableOpacity onPress={onStatisticPressHandler}>
         <StatisticCard name={"wins-all-time"} title={"Чемпионы мира"}></StatisticCard>
       </TouchableOpacity>

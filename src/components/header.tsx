@@ -7,9 +7,14 @@ import { textStyle } from "../style/style";
 interface HeaderProps {
   withBackButton?: boolean;
   navigtion?: any;
+  title: string;
 }
 
-const Header = ({ withBackButton = false, navigtion: navigation }: HeaderProps) => {
+const Header = ({
+  withBackButton = false,
+  navigtion: navigation,
+  title,
+}: HeaderProps) => {
   const showBack = () => {
     navigation.goBack();
   };
@@ -30,7 +35,7 @@ const Header = ({ withBackButton = false, navigtion: navigation }: HeaderProps) 
             justifyContent: "center",
             alignItems: withBackButton ? "flex-start" : "center",
           }}>
-          <Text style={textStyle.headerWhite}>Информация о гонке</Text>
+          <Text style={textStyle.headerWhite}>{title}</Text>
         </View>
       </View>
     </View>
