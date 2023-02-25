@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, ActivityIndicator, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import axios, { year } from "../../../axois/axios";
-import { MRDataSprintResults, SprintResult } from "../../../axois/data-sprint-results";
+import { MRDataRaceResults, Result } from "../../../axois/data-race-results";
 import FutureRace from "../../../components/future-race";
+import LoadingComponent from "../../../components/loading";
 import PilotCard from "../../../components/pilot-card";
 import { colors } from "../../../style/colors";
 
-interface RaceInfoSprintProps {
+interface RaceInfoRaceResultProps {
   route?: any;
 }
 
-const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
-  const [sprintResults, setSprintResutls] = useState<SprintResult[]>([]);
+const RaceInfoRaceResult = ({ route }: RaceInfoRaceResultProps) => {
+  const [raceResults, setRaceResutls] = useState<Result[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const round = route.params.round;
-  const sprintTime = route.params?.sprintTime;
+  const raceTime = route.params?.raceTime;
 
   useEffect(() => {
-    if (!sprintTime) {
+    if (!raceTime) {
       setIsLoading(true);
-      axios.get(`/${year}/${round}/sprint.json`).then((response) => {
-        const qualifying: MRDataSprintResults = response.data;
-        setSprintResutls(qualifying.MRData.RaceTable.Races[0].SprintResults);
+      axios.get(`/${year}/${round}/results.json`).then((response) => {
+        const race: MRDataRaceResults = response.data;
+        setRaceResutls(race.MRData.RaceTable.Races[0].Results);
         setIsLoading(false);
       });
     }
   }, [round]);
 
-  const renderPilotCard = ({ item }: { item: SprintResult }) => {
+  const renderPilotCard = ({ item }: { item: Result }) => {
     const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
     return (
       <PilotCard
@@ -41,19 +42,15 @@ const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
     );
   };
 
-  const keyExtractor = (item: SprintResult) => `sprint-${item.Driver.driverId}`;
+  const keyExtractor = (item: Result) => `race-${item.Driver.driverId}`;
 
   return (
     <View style={styles.container}>
-      {sprintTime && <FutureRace date={sprintTime} />}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      {raceTime && <FutureRace date={raceTime} />}
+      <LoadingComponent isLoading={isLoading} />
       <FlatList
         keyExtractor={keyExtractor}
-        data={sprintResults}
+        data={raceResults}
         renderItem={renderPilotCard}
       />
     </View>
@@ -73,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RaceInfoSprint;
+export default RaceInfoRaceResult;

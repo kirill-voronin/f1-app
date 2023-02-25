@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
 import ErrorComponent from "../components/error";
+import Header from "../components/header";
+import LoadingComponent from "../components/loading";
 import PilotCard from "../components/pilot-card";
 import { colors } from "../style/colors";
-import { textStyle } from "../style/style";
 
 export default function PilotsStanding() {
   const [pilots, setPilots] = useState<DriverStanding[] | undefined>([]);
@@ -46,9 +47,7 @@ export default function PilotsStanding() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={textStyle.headerWhite}>Рейтинг пилотов</Text>
-      </View>
+      <Header title="Зачет пилотов" />
       {isError && <ErrorComponent color="#fff" />}
       {!pilots && (
         <View style={styles.isLoadingContainer}>
@@ -57,11 +56,7 @@ export default function PilotsStanding() {
           </Text>
         </View>
       )}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       {pilots?.length != 0 && (
         <FlatList
           data={pilots}
@@ -78,13 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     backgroundColor: "#1E1E1E",
-  },
-  header: {
-    height: 60,
-    backgroundColor: colors.primary,
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
-    justifyContent: "center",
   },
   isLoadingContainer: {
     flex: 1,

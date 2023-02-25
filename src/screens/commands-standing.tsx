@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { CONSTRUCTORS_STANDING } from "../axois/axios";
 import {
@@ -8,8 +8,9 @@ import {
 } from "../axois/data-constructors";
 import CommandCard from "../components/command-card";
 import ErrorComponent from "../components/error";
+import Header from "../components/header";
+import LoadingComponent from "../components/loading";
 import { colors } from "../style/colors";
-import { textStyle } from "../style/style";
 
 export default function ConstructorsStanding() {
   const [constructors, setConstructors] = useState<ConstructorStanding[] | undefined>([]);
@@ -51,9 +52,7 @@ export default function ConstructorsStanding() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={textStyle.headerWhite}>Рейтинг конструкторов</Text>
-      </View>
+      <Header title="Кубок конструкторов" />
       {isError && <ErrorComponent color="#fff" />}
       {!constructors && (
         <View style={styles.isLoadingContainer}>
@@ -62,11 +61,7 @@ export default function ConstructorsStanding() {
           </Text>
         </View>
       )}
-      {isLoading && (
-        <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+      <LoadingComponent isLoading={isLoading} />
       {constructors?.length != 0 && (
         <FlatList
           data={constructors}
@@ -83,13 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     backgroundColor: colors.secondary,
-  },
-  header: {
-    height: 60,
-    backgroundColor: colors.primary,
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
-    justifyContent: "center",
   },
   isLoadingContainer: {
     flex: 1,
