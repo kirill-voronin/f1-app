@@ -10,7 +10,7 @@ import Svg, {
   Stop,
 } from "react-native-svg";
 
-export type Sizes = "medium";
+export type Sizes = "medium" | "large";
 
 interface IconProps {
   size: Sizes;
@@ -20,6 +20,10 @@ const sizes = {
   medium: {
     width: 40,
     height: 40,
+  },
+  large: {
+    width: 60,
+    height: 60,
   },
 };
 
