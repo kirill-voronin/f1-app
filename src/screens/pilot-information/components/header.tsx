@@ -21,8 +21,6 @@ const PilotInformationHeader = ({
     navigation.goBack();
   };
 
-  console.log("PilotInformationHeader", pilotWikiId);
-
   useEffect(() => {
     fetch(
       `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`

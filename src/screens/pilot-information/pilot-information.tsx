@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import { getCorrectPilotWikiId } from "../../functions/isRedirect";
 import PilotInformationHeader from "./components/header";
 import NationalityInformation from "./components/nationality-information";
+import { smallCardData as getSmallCardData } from "./components/data";
+import StasticSmallCard, {
+  StasticSmallCardProps,
+} from "./components/statistic-small-card";
+import { DriverStanding } from "../../axois/data-pilots";
+import axios from "../../axois/axios";
+import { PilotResults, Race } from "../../axois/data-pilot-result";
+import {
+  MRDataQualifyingResults,
+  Race as QualifyingRace,
+} from "../../axois/data-qualifying";
 
 interface PilotInformaionScreenProps {
   navigation: any;
@@ -10,9 +21,23 @@ interface PilotInformaionScreenProps {
 }
 
 const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProps) => {
-  const pilot = route.params?.pilot;
+  const pilot: DriverStanding = route.params?.pilot;
   const pilotWikiId = route.params?.pilotWikiId || "";
   const [correctPilotWikiId, setCorrectPilotWikiId] = useState<string>();
+
+  const [pilotResults, setPilotResults] = useState<PilotResults>();
+  const [podiums, setPodiums] = useState<Race[]>([]);
+  const [fastestLaps, setFastestLaps] = useState<Race[]>([]);
+  const [polePositions, setPolePositions] = useState<QualifyingRace[]>([]);
+
+  const statisticCardsData = getSmallCardData(
+    pilotResults?.MRData?.RaceTable?.Races?.length.toString() || "",
+    pilot.points,
+    podiums?.length.toString(),
+    pilot.wins,
+    polePositions.length.toString(),
+    fastestLaps.length.toString()
+  );
 
   useEffect(() => {
     fetch(
@@ -27,6 +52,51 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
       .catch((error) => console.log("error", error));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`/current/drivers/${pilot.Driver.driverId}/results.json`)
+      .then((response) => {
+        const data: PilotResults = response.data;
+        setPilotResults(response.data);
+        setPodiums(
+          data?.MRData.RaceTable.Races.filter(
+            (value) => Number(value.Results[0].position) <= 3
+          )
+        );
+        setFastestLaps(
+          data?.MRData.RaceTable.Races.filter(
+            (value) => Number(value.Results[0].FastestLap.rank) === 1
+          )
+        );
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/current/drivers/${pilot.Driver.driverId}/qualifying/1.json`)
+      .then((response) => {
+        const data: MRDataQualifyingResults = response.data;
+        setPolePositions(data.MRData.RaceTable.Races);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }, []);
+
+  const renderItem = (item: { item: StasticSmallCardProps }) => {
+    const cardProps = item.item;
+    return (
+      <StasticSmallCard
+        title={cardProps.title}
+        data={cardProps.data}
+        icon={cardProps.icon}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
       {correctPilotWikiId && (
@@ -37,6 +107,12 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
             pilot={pilot}
           />
           <NationalityInformation pilot={pilot} />
+          <FlatList
+            data={statisticCardsData}
+            numColumns={2}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.title}
+          />
         </>
       )}
     </View>
@@ -48,6 +124,10 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     backgroundColor: "#1E1E1E",
+  },
+  smallCardsContainer: {
+    flex: 1,
+    height: "100%",
   },
 });
 
