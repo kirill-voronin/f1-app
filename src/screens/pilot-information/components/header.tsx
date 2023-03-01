@@ -35,13 +35,13 @@ const PilotInformationHeader = ({
   return (
     <View style={styles.container}>
       <View style={styles.flexHeaderContainer}>
-        <View style={styles.flexIconContainer}>
-          <TouchableOpacity onPress={showBack} accessibilityRole="button">
-            <ControlIcons name="back" size="buttonBack"></ControlIcons>
-          </TouchableOpacity>
-        </View>
         <View style={styles.flexTextContainer}>
           <Text style={textStyle.headerWhite}>Пилот</Text>
+        </View>
+        <View style={styles.flexIconContainer}>
+          <TouchableOpacity onPress={showBack} accessibilityRole="button">
+            <ControlIcons name="back" size="buttonBack" />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.imageContainer}>
@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
   flexIconContainer: {
     position: "absolute",
     top: 4,
-    left: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    left: 25,
   },
   flexTextContainer: {
     flex: 1,
