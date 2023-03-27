@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { DriverStanding } from "../../../axois/data-pilots";
+import Header from "../../../components/header";
 import ControlIcons from "../../../icons/controls-icons";
 import { colors } from "../../../style/colors";
 import { textStyle } from "../../../style/style";
@@ -17,9 +18,6 @@ const PilotInformationHeader = ({
   pilot,
 }: PilotInformationHeaderProps) => {
   const [imageUri, setImageUri] = useState("");
-  const showBack = () => {
-    navigation.goBack();
-  };
 
   useEffect(() => {
     fetch(
@@ -34,33 +32,25 @@ const PilotInformationHeader = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.flexHeaderContainer}>
-        <View style={styles.flexTextContainer}>
-          <Text style={textStyle.headerWhite}>Пилот</Text>
+      <Header title="Пилот" withBackButton navigtion={navigation}>
+        <View style={styles.imageContainer}>
+          {imageUri && (
+            <Image
+              style={styles.image}
+              source={{
+                uri: imageUri,
+              }}
+            />
+          )}
+          <View style={{ width: "auto", top: -15 }}>
+            <Text style={styles.pilotID}> {pilot.Driver.code} </Text>
+            <Text style={styles.pilotNumber}>{pilot.Driver.permanentNumber}</Text>
+          </View>
         </View>
-        <View style={styles.flexIconContainer}>
-          <TouchableOpacity onPress={showBack} accessibilityRole="button">
-            <ControlIcons name="back" size="buttonBack" />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.imageContainer}>
-        {imageUri && (
-          <Image
-            style={styles.image}
-            source={{
-              uri: imageUri,
-            }}
-          />
-        )}
-        <View style={{ width: "auto", top: -15 }}>
-          <Text style={styles.pilotID}> {pilot.Driver.code} </Text>
-          <Text style={styles.pilotNumber}>{pilot.Driver.permanentNumber}</Text>
-        </View>
-      </View>
-      <Text style={textStyle.headerWhite}>
-        {pilot.Driver.givenName} {pilot.Driver.familyName}
-      </Text>
+        <Text style={textStyle.headerWhite}>
+          {pilot.Driver.givenName} {pilot.Driver.familyName}
+        </Text>
+      </Header>
     </View>
   );
 };
@@ -73,20 +63,6 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 20,
     height: 250,
   },
-  flexHeaderContainer: {
-    top: 15,
-    flexDirection: "row",
-  },
-  flexIconContainer: {
-    position: "absolute",
-    top: 4,
-    left: 25,
-  },
-  flexTextContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   image: {
     width: 120,
     height: 150,
@@ -94,7 +70,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   imageContainer: {
-    top: 20,
+    top: 10,
     flexDirection: "row",
     justifyContent: "space-around",
     marginHorizontal: 25,
@@ -114,7 +90,6 @@ const styles = StyleSheet.create({
     color: colors.white,
     textAlign: "center",
   },
-  pilotName: {},
 });
 
 export default PilotInformationHeader;

@@ -52,7 +52,7 @@ export default function ConstructorsStanding() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Кубок конструкторов" />
+      <Header title="Кубок конструкторов"></Header>
       {isError && <ErrorComponent color="#fff" />}
       {!constructors && (
         <View style={styles.isLoadingContainer}>
