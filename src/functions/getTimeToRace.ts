@@ -22,6 +22,10 @@ export function getTimeToRace(date?: string, time?: string): string {
 }
 
 const getCorrectHourName = (hour: number) => {
+  if (hour === 11 || hour === 12) {
+    return "часов";
+  }
+
   switch (hour % 10) {
     case 1:
       return "час";
@@ -42,6 +46,10 @@ const getCorrectHourName = (hour: number) => {
 };
 
 const getCorrectDayName = (day: number) => {
+  if (day === 11 || day === 12) {
+    return "дней";
+  }
+
   switch (day % 10) {
     case 1:
       return "день";
