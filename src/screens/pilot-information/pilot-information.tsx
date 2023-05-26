@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { getCorrectPilotWikiId } from "../../functions/isRedirect";
 import PilotInformationHeader from "./components/header";
-import NationalityInformation from "./components/nationality-information";
+import NationalityInformation from "../../components/detail-information/nationality-information";
 import { smallCardData as getSmallCardData } from "./components/data";
 import StasticSmallCard, {
   StasticSmallCardProps,
@@ -22,6 +22,7 @@ interface PilotInformaionScreenProps {
 
 const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProps) => {
   const pilot: DriverStanding = route.params?.pilot;
+
   const pilotWikiId = route.params?.pilotWikiId || "";
   const [correctPilotWikiId, setCorrectPilotWikiId] = useState<string>();
 
@@ -106,7 +107,17 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
             pilotWikiId={correctPilotWikiId}
             pilot={pilot}
           />
-          <NationalityInformation pilot={pilot} />
+          <NationalityInformation
+            type="nationality"
+            mainText={pilot.Driver.nationality}
+            birthday={pilot.Driver.dateOfBirth}
+            iconId={pilot.Constructors[0].constructorId}
+          />
+          <NationalityInformation
+            type="constructor"
+            mainText={pilot.Constructors[0].name}
+            iconId={pilot.Constructors[0].constructorId}
+          />
           <FlatList
             data={statisticCardsData}
             numColumns={2}

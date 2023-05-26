@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { colors } from "../style/colors";
 import MenuIcons from "../icons/menu-icons";
 import PilotsStanding from "../screens/pilots-standing";
-import ConstructorsStanding from "../screens/commands-standing";
+import ConstructorsStanding from "../screens/constructor-standing";
 import Calendar from "../screens/calendar/calendar";
 import StatisticAll from "../screens/statistics/statistic-all";
 

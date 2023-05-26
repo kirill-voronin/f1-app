@@ -47,7 +47,7 @@ const PilotInformationHeader = ({
             <Text style={styles.pilotNumber}>{pilot.Driver.permanentNumber}</Text>
           </View>
         </View>
-        <Text style={textStyle.headerWhite}>
+        <Text style={[textStyle.headerWhite, { marginTop: -10 }]}>
           {pilot.Driver.givenName} {pilot.Driver.familyName}
         </Text>
       </Header>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 120,
-    height: 150,
+    height: 140,
     borderRadius: 35,
     resizeMode: "cover",
   },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
   pilotID: {
-    fontSize: 54,
+    fontSize: 50,
     fontStyle: "italic",
     fontWeight: "700",
     textAlign: "center",

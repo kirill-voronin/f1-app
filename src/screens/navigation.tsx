@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MaterialBottomMenu from "../components/material-bottom-menu";
 import RaceInformationStack from "./calendar/race-information/race-information-stack";
-import StatisticPilotsChampionship from "./statistics/screens/statistic-pilots-championship";
 import PilotInformationScreen from "./pilot-information/pilot-information";
+import ConstructorInformationScreen from "./constructor-information/constructor-information";
+import StatisticPilotsChampionship from "./statistics/screens/champions/statistic-pilots-championship";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,10 @@ const Navigation = () => {
         <Stack.Screen name="Calendar" component={MaterialBottomMenu} />
         <Stack.Screen name="RaceInformation" component={RaceInformationStack} />
         <Stack.Screen name="PilotInformation" component={PilotInformationScreen} />
+        <Stack.Screen
+          name="ConstructorInformation"
+          component={ConstructorInformationScreen}
+        />
         <Stack.Screen
           name="StatisticAllWinners"
           component={StatisticPilotsChampionship}

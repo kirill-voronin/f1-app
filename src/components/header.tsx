@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
+    elevation: 4,
   },
   bigHeader: {
     backgroundColor: colors.primary,
@@ -73,8 +74,11 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   flexHeaderContainer: {
-    flex: 1,
+    height: 50,
+    // backgroundColor: "blue",
     flexDirection: "row",
+    width: "100%",
+    marginTop: 10,
   },
 });
 

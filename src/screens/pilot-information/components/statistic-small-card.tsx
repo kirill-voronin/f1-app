@@ -23,7 +23,7 @@ const StasticSmallCard = ({ title, data, icon }: StasticSmallCardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 0.5,
     marginHorizontal: 15,
     marginTop: 10,
     borderRadius: 15,
