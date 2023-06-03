@@ -3,6 +3,7 @@
   "conventionalCommits.scopes": [
     "constructors",
     "menu",
-    "calendar"
+    "calendar",
+    "pilots"
   ]
 }

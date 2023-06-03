@@ -5,6 +5,7 @@ import Header from "../../../components/header";
 import ControlIcons from "../../../icons/controls-icons";
 import { colors } from "../../../style/colors";
 import { textStyle } from "../../../style/style";
+import LoadingComponent from "../../../components/loading";
 
 interface PilotInformationHeaderProps {
   navigation: any;
@@ -18,38 +19,50 @@ const PilotInformationHeader = ({
   pilot,
 }: PilotInformationHeaderProps) => {
   const [imageUri, setImageUri] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`
     )
       .then((response) => response.text())
       .then((result) => {
         setImageUri(JSON.parse(result).query.pages[0].original.source);
+        setIsLoading(false);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <View style={styles.container}>
       <Header title="Пилот" withBackButton navigtion={navigation}>
-        <View style={styles.imageContainer}>
-          {imageUri && (
-            <Image
-              style={styles.image}
-              source={{
-                uri: imageUri,
-              }}
-            />
-          )}
-          <View style={{ width: "auto", top: -15 }}>
-            <Text style={styles.pilotID}> {pilot.Driver.code} </Text>
-            <Text style={styles.pilotNumber}>{pilot.Driver.permanentNumber}</Text>
-          </View>
-        </View>
-        <Text style={[textStyle.headerWhite, { marginTop: -10 }]}>
-          {pilot.Driver.givenName} {pilot.Driver.familyName}
-        </Text>
+        {isLoading ? (
+          <LoadingComponent isLoading={isLoading} isLight />
+        ) : (
+          <>
+            <View style={styles.imageContainer}>
+              {imageUri && (
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: imageUri,
+                  }}
+                />
+              )}
+              <View style={{ width: "auto", top: -15 }}>
+                <Text style={styles.pilotID}> {pilot.Driver.code} </Text>
+                <Text style={styles.pilotNumber}>{pilot.Driver.permanentNumber}</Text>
+              </View>
+            </View>
+            <Text style={[textStyle.headerWhite, { marginTop: -10 }]}>
+              {pilot.Driver.givenName} {pilot.Driver.familyName}
+            </Text>
+          </>
+        )}
       </Header>
     </View>
   );

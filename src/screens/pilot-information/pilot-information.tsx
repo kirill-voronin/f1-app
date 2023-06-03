@@ -14,6 +14,7 @@ import {
   MRDataQualifyingResults,
   Race as QualifyingRace,
 } from "../../axois/data-qualifying";
+import LoadingComponent from "../../components/loading";
 
 interface PilotInformaionScreenProps {
   navigation: any;
@@ -30,6 +31,9 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
   const [podiums, setPodiums] = useState<Race[]>([]);
   const [fastestLaps, setFastestLaps] = useState<Race[]>([]);
   const [polePositions, setPolePositions] = useState<QualifyingRace[]>([]);
+
+  const [isResultsLoading, setIsResultsLoading] = useState<boolean>(false);
+  const [isQualifyingLoading, setIsQualifyingLoading] = useState<boolean>(false);
 
   const statisticCardsData = getSmallCardData(
     pilotResults?.MRData?.RaceTable?.Races?.length.toString() || "",
@@ -54,6 +58,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
   }, []);
 
   useEffect(() => {
+    setIsResultsLoading(true);
     axios
       .get(`/current/drivers/${pilot.Driver.driverId}/results.json`)
       .then((response) => {
@@ -69,21 +74,26 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
             (value) => Number(value.Results[0].FastestLap.rank) === 1
           )
         );
+        setIsResultsLoading(false);
       })
       .catch((err) => {
         console.log("error", err);
+        setIsResultsLoading(false);
       });
   }, []);
 
   useEffect(() => {
+    setIsQualifyingLoading(true);
     axios
       .get(`/current/drivers/${pilot.Driver.driverId}/qualifying/1.json`)
       .then((response) => {
         const data: MRDataQualifyingResults = response.data;
         setPolePositions(data.MRData.RaceTable.Races);
+        setIsQualifyingLoading(false);
       })
       .catch((err) => {
         console.log("error", err);
+        setIsQualifyingLoading(false);
       });
   }, []);
 
@@ -107,23 +117,32 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
             pilotWikiId={correctPilotWikiId}
             pilot={pilot}
           />
-          <NationalityInformation
-            type="nationality"
-            mainText={pilot.Driver.nationality}
-            birthday={pilot.Driver.dateOfBirth}
-            iconId={pilot.Constructors[0].constructorId}
-          />
-          <NationalityInformation
-            type="constructor"
-            mainText={pilot.Constructors[0].name}
-            iconId={pilot.Constructors[0].constructorId}
-          />
-          <FlatList
-            data={statisticCardsData}
-            numColumns={2}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.title}
-          />
+          {isResultsLoading || isQualifyingLoading ? (
+            <LoadingComponent isLoading={isResultsLoading} />
+          ) : (
+            <>
+              <NationalityInformation
+                type="nationality"
+                mainText={pilot.Driver.nationality}
+                birthday={pilot.Driver.dateOfBirth}
+                iconId={pilot.Constructors[0].constructorId}
+              />
+              <NationalityInformation
+                type="constructor"
+                mainText={pilot.Constructors[0].name}
+                iconId={pilot.Constructors[0].constructorId}
+              />
+              <FlatList
+                data={statisticCardsData}
+                numColumns={2}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.title}
+              />
+            </>
+          )}
+          {/* {(!isResultsLoading || !isQualifyingLoading) && (
+            
+          )} */}
         </>
       )}
     </View>
