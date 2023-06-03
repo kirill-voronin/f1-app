@@ -16,7 +16,7 @@ interface ChampionsProps {
 const ChampionsStack = ({ navigation, route }: ChampionsProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Чемпионы мира" withBackButton navigtion={navigation} />
+      <Header title="Чемпионы мира" />
       <TopTab.Navigator
         screenOptions={{
           tabBarActiveTintColor: colors.primary,

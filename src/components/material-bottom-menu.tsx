@@ -6,6 +6,7 @@ import PilotsStanding from "../screens/pilots-standing";
 import ConstructorsStanding from "../screens/constructor-standing";
 import Calendar from "../screens/calendar/calendar";
 import StatisticAll from "../screens/statistics/statistic-all";
+import ChampionsStack from "../screens/statistics/screens/champions/statistic-championship-stack";
 
 const MaterialTabs = createMaterialBottomTabNavigator();
 
@@ -24,7 +25,7 @@ const MaterialBottomMenu = () => {
       <MaterialTabs.Screen name="Календарь" component={Calendar} />
       <MaterialTabs.Screen name="Пилоты" component={PilotsStanding} />
       <MaterialTabs.Screen name="Команды" component={ConstructorsStanding} />
-      <MaterialTabs.Screen name="Статистика" component={StatisticAll} />
+      <MaterialTabs.Screen name="Чемпионы" component={ChampionsStack} />
     </MaterialTabs.Navigator>
   );
 };
