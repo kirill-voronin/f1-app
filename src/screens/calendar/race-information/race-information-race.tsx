@@ -4,7 +4,7 @@ import axios, { year } from "../../../axois/axios";
 import { MRDataRaceResults, Result } from "../../../axois/data-race-results";
 import FutureRace from "../../../components/future-race";
 import LoadingComponent from "../../../components/loading";
-import PilotCard from "../../../components/pilot-card";
+import PilotCard from "../../../components/cards/pilot-card";
 import { colors } from "../../../style/colors";
 
 interface RaceInfoRaceResultProps {

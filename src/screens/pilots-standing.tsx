@@ -6,7 +6,7 @@ import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
 import LoadingComponent from "../components/loading";
-import PilotCard from "../components/pilot-card";
+import PilotCard from "../components/cards/pilot-card";
 import { getWikiId } from "../functions/getWikiId";
 
 interface PilotsStandingProps {

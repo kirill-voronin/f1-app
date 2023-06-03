@@ -7,6 +7,7 @@ import RaceInformationStack from "./calendar/race-information/race-information-s
 import PilotInformationScreen from "./pilot-information/pilot-information";
 import ConstructorInformationScreen from "./constructor-information/constructor-information";
 import StatisticPilotsChampionship from "./statistics/screens/champions/statistic-pilots-championship";
+import ChampionsStack from "./statistics/screens/champions/statistic-championship-stack";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,10 +26,7 @@ const Navigation = () => {
           name="ConstructorInformation"
           component={ConstructorInformationScreen}
         />
-        <Stack.Screen
-          name="StatisticAllWinners"
-          component={StatisticPilotsChampionship}
-        />
+        <Stack.Screen name="StatisticAllWinners" component={ChampionsStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

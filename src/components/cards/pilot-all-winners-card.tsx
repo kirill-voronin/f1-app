@@ -1,52 +1,61 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
-import ControlIcons from "../icons/controls-icons";
-import StatisticIcons from "../icons/statistic-icons";
-import { colors } from "../style/colors";
+import { View, Text, StyleSheet } from "react-native";
+import FlagIcons from "../../icons/flag-icons/flag-icons";
+import { colors } from "../../style/colors";
 
-interface StatisticCardProps {
-  name: string;
-  title: string;
+interface AllWinnersCardProps {
+  year: string;
+  driverName?: string;
+  commandName?: string;
+  nationality: string;
 }
 
-export default function StatisticCard({ title }: StatisticCardProps) {
+const AllWinnersCard = ({
+  year,
+  commandName,
+  driverName,
+  nationality,
+}: AllWinnersCardProps) => {
   return (
     <View style={styles.container}>
-      <View style={styles.iconBlock}>
-        <StatisticIcons name="wins-all-time" />
+      <View style={styles.year}>
+        <Text style={textStyle.position}>{year}</Text>
       </View>
-      <View style={styles.flagBox}>
-        <Text style={textStyle.name}>{title}</Text>
+      <View style={styles.nationality}>
+        <FlagIcons size="medium" nationality={nationality} />
       </View>
       <View style={styles.nameBox}>
-        <ControlIcons name="right" size="right" />
+        <Text style={textStyle.name}>{driverName}</Text>
+        <Text style={textStyle.command}>{commandName}</Text>
       </View>
     </View>
   );
-}
+};
+
+export default AllWinnersCard;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
-    justifyContent: "flex-start",
     height: 60,
     backgroundColor: colors.white,
     marginVertical: 15,
     marginHorizontal: 20,
     borderRadius: 15,
   },
-  iconBlock: {
-    flex: 5,
+  year: {
+    flex: 3.5,
     justifyContent: "center",
     alignItems: "center",
   },
-  flagBox: {
-    flex: 15,
+  nationality: {
+    flex: 3.5,
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
   },
   nameBox: {
-    flex: 2,
+    flex: 10,
     justifyContent: "center",
     paddingStart: 10,
   },

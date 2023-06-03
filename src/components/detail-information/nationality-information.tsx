@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { getAge } from "../../functions/getAge";
-import CommandIcons from "../../icons/constructor-icons/constructors-icons";
+import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";
 import { DriverStanding } from "../../axois/data-pilots";
@@ -25,7 +25,7 @@ const NationalityInformation = ({
     if (type === "nationality") {
       return <FlagIcons nationality={mainText} size="large" />;
     }
-    return <CommandIcons name={iconId} size="large" />;
+    return <ConstructorIcons name={iconId} size="large" />;
   };
 
   return (

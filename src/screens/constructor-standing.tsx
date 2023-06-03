@@ -6,7 +6,7 @@ import {
   ConstructorStanding,
   MRDataConstructorsStanding,
 } from "../axois/data-constructors";
-import ConstructorCard from "../components/command-card";
+import ConstructorCard from "../components/cards/command-card";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
 import LoadingComponent from "../components/loading";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { ConstructorStanding } from "../../axois/data-constructors";
 import Header from "../../components/header";
-import CommandIcons from "../../icons/constructor-icons/constructors-icons";
+import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
 import { colors } from "../../style/colors";
 import NationalityInformation from "../../components/detail-information/nationality-information";
 import { textStyle } from "../../style/style";
@@ -122,7 +122,7 @@ const ConstructorInformationScreen = ({
       <Header title={"Конструктор"} withBackButton navigtion={navigation}>
         <View style={styles.imageContainer}>
           <View style={styles.constructorLogo}>
-            <CommandIcons
+            <ConstructorIcons
               name={constructor.Constructor.constructorId}
               size="extraLarge"
             />

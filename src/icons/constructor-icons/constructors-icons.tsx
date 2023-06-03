@@ -4,13 +4,19 @@ import {
   AlphaTauri,
   Alpine,
   AstonMartin,
+  Benetton,
+  Brawn,
   Ferrari,
   Haas,
+  MatraFord,
   McLaren,
   Mercedes,
   Netral,
   RedBull,
+  Renault,
   Sizes,
+  TeamLotus,
+  Tyrrell,
   Williams,
 } from "./constructors-svg";
 
@@ -19,7 +25,7 @@ interface IconsProps {
   size?: Sizes;
 }
 
-export default function CommandIcons({ name, size = "medium" }: IconsProps) {
+export default function ConstructorIcons({ name, size = "medium" }: IconsProps) {
   const renderConstructorLogo = () => {
     switch (name) {
       case "mercedes":
@@ -42,6 +48,20 @@ export default function CommandIcons({ name, size = "medium" }: IconsProps) {
         return <AlphaTauri size={size} />;
       case "williams":
         return <Williams size={size} />;
+      case "brawn":
+        return <Brawn size={size} />;
+      case "renault":
+        return <Renault size={size} />;
+      case "benetton":
+        return <Benetton size={size} />;
+      case "team_lotus":
+      case "lotus-ford":
+      case "lotus-climax":
+        return <TeamLotus size={size} />;
+      case "tyrrell":
+        return <Tyrrell size={size} />;
+      case "matra-ford":
+        return <MatraFord size={size} />;
       default:
         return <Netral size={size} />;
     }
