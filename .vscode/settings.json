@@ -2,6 +2,7 @@
   "svg.preview.background": "editor",
   "conventionalCommits.scopes": [
     "constructors",
-    "menu"
+    "menu",
+    "calendar"
   ]
 }

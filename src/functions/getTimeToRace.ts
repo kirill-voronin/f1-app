@@ -39,7 +39,11 @@ const getCorrectHourName = (hour: number) => {
     case 8:
     case 9:
     case 0:
-      return "5";
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+      return "часов";
     default:
       return "";
   }
@@ -63,6 +67,10 @@ const getCorrectDayName = (day: number) => {
     case 8:
     case 9:
     case 0:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
       return "дней";
     default:
       return "";
