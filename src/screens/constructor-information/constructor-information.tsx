@@ -18,6 +18,7 @@ import {
   MRDataConstructorQualifying,
   Race as RaceConstructorQualifying,
 } from "../../axois/data-constructor-qualifying";
+import LoadingComponent from "../../components/loading";
 
 interface ConstructorInformationScreenProps {
   navigation: any;
@@ -34,19 +35,30 @@ const ConstructorInformationScreen = ({
   const [fastestLaps, setFastestLaps] = useState<Race[]>([]);
   const [polePositions, setPolePositions] = useState<RaceConstructorQualifying[]>([]);
 
+  const [isDriversLoading, setIsDriversLoading] = useState<boolean>(false);
+  const [isResultsLoading, setIsResultsLoading] = useState<boolean>(false);
+  const [isQualifyingLoading, setIsQualifyingLoading] = useState<boolean>(false);
+
   useEffect(() => {
+    setIsDriversLoading(true);
     const getData = async () => {
       await axios
         .get(`current/constructors/${constructor.Constructor.constructorId}/drivers.json`)
         .then((response) => {
           const data: Driver[] = response.data.MRData.DriverTable.Drivers;
           setPilots([...data]);
+          setIsDriversLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsDriversLoading(false);
         });
     };
     getData();
   }, []);
 
   useEffect(() => {
+    setIsResultsLoading(true);
     axios
       .get(`current/constructors/${constructor.Constructor.constructorId}/results.json`)
       .then((response) => {
@@ -64,13 +76,16 @@ const ConstructorInformationScreen = ({
               Number(value.Results[1].FastestLap?.rank) === 1
           )
         );
+        setIsResultsLoading(false);
       })
       .catch((err) => {
         console.log("error", err);
+        setIsResultsLoading(false);
       });
   }, []);
 
   useEffect(() => {
+    setIsQualifyingLoading(true);
     axios
       .get(
         `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`
@@ -84,8 +99,13 @@ const ConstructorInformationScreen = ({
               Number(value.QualifyingResults[1].position) === 1
           )
         );
+        setIsQualifyingLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsQualifyingLoading(false);
       });
-  });
+  }, []);
 
   const statisticCardsData = getSmallCardData(
     constructor.points,
@@ -130,31 +150,37 @@ const ConstructorInformationScreen = ({
         </View>
         <Text style={styles.constructorName}>{constructor.Constructor.name}</Text>
       </Header>
-      <ScrollView>
-        <NationalityInformation
-          type="nationality"
-          mainText={constructor.Constructor.nationality}
-          iconId={constructor.Constructor.nationality}
+      {isDriversLoading || isQualifyingLoading || isResultsLoading ? (
+        <LoadingComponent
+          isLoading={isDriversLoading || isQualifyingLoading || isResultsLoading}
         />
-        <Text style={textStyle.headerWhite}>Пилоты</Text>
-        <FlatList
-          data={pilots}
-          numColumns={2}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.code}
-          scrollEnabled={false}
-        />
-        <Text style={textStyle.headerWhite}>Статистика сезона</Text>
-        <FlatList
-          data={statisticCardsData}
-          numColumns={2}
-          renderItem={renderStatisticSmallCards}
-          keyExtractor={(item) => item.title}
-          scrollEnabled={false}
-          columnWrapperStyle={styles.row}
-          style={{ marginBottom: 10 }}
-        />
-      </ScrollView>
+      ) : (
+        <ScrollView>
+          <NationalityInformation
+            type="nationality"
+            mainText={constructor.Constructor.nationality}
+            iconId={constructor.Constructor.nationality}
+          />
+          <Text style={textStyle.headerWhite}>Пилоты</Text>
+          <FlatList
+            data={pilots}
+            numColumns={2}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.code}
+            scrollEnabled={false}
+          />
+          <Text style={textStyle.headerWhite}>Статистика сезона</Text>
+          <FlatList
+            data={statisticCardsData}
+            numColumns={2}
+            renderItem={renderStatisticSmallCards}
+            keyExtractor={(item) => item.title}
+            scrollEnabled={false}
+            columnWrapperStyle={styles.row}
+            style={{ marginBottom: 10 }}
+          />
+        </ScrollView>
+      )}
     </View>
   );
 };

@@ -4,6 +4,7 @@ import { colors } from "../../../style/colors";
 import { getCorrectPilotWikiId } from "../../../functions/isRedirect";
 import { getWikiId } from "../../../functions/getWikiId";
 import { textStyle } from "../../../style/style";
+import LoadingComponent from "../../../components/loading";
 
 export interface PilotSmallCardProps {
   code?: string;
@@ -15,6 +16,7 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
   const pilotWikiId = getWikiId(pilotUri || "");
   const [imageUri, setImageUri] = useState<string>("");
   const [correctPilotWikiId, setCorrectPilotWikiId] = useState<string>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(
@@ -23,11 +25,16 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
       .then((response) => response.text())
       .then((result) => {
         setImageUri(JSON.parse(result).query.pages[0].original.source);
+        setIsLoading(false);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(true);
+      });
   }, [correctPilotWikiId]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`
     )
@@ -40,26 +47,35 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
           getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"])
         );
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        {imageUri && (
-          <Image
-            style={styles.image}
-            source={{
-              uri: imageUri,
-            }}
-          />
-        )}
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={[textStyle.headerWhite]}>
-          {number} {code}
-        </Text>
-      </View>
+      {isLoading ? (
+        <LoadingComponent isLoading={isLoading} />
+      ) : (
+        <>
+          <View style={styles.imageContainer}>
+            {imageUri && (
+              <Image
+                style={styles.image}
+                source={{
+                  uri: imageUri,
+                }}
+              />
+            )}
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={[textStyle.headerWhite]}>
+              {number} {code}
+            </Text>
+          </View>
+        </>
+      )}
     </View>
   );
 };
