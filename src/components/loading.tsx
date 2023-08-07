@@ -4,14 +4,18 @@ import { colors } from "../style/colors";
 
 interface LoadingComponentProps {
   isLoading: boolean;
+  isLight?: boolean;
 }
 
-const LoadingComponent = ({ isLoading }: LoadingComponentProps) => {
+const LoadingComponent = ({ isLoading, isLight }: LoadingComponentProps) => {
   return (
     <>
       {isLoading && (
         <View style={styles.isLoadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
+          <ActivityIndicator
+            size="large"
+            color={isLight ? colors.white : colors.primary}
+          />
         </View>
       )}
     </>

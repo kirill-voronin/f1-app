@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MRDataRace, Race } from "../../axois/data-race";
 import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
-import RaceCard from "../../components/race-card";
+import RaceCard from "../../components/cards/race-card";
 import { textStyle } from "../../style/style";
 import { getLocalDateTime } from "../../functions/getLocalDate";
 import NextRace from "../../components/next-race/next-race";

@@ -1,3 +1,9 @@
 {
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "conventionalCommits.scopes": [
+    "constructors",
+    "menu",
+    "calendar",
+    "pilots"
+  ]
 }

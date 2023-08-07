@@ -1,9 +1,9 @@
 import moment from "moment";
 import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import FlagIcons from "../icons/flag-icons/flag-icons";
-import { colors } from "../style/colors";
-import { textStyle } from "../style/style";
+import FlagIcons from "../../icons/flag-icons/flag-icons";
+import { colors } from "../../style/colors";
+import { textStyle } from "../../style/style";
 
 interface RaceCardProps {
   name?: string;

@@ -1,7 +1,9 @@
+import moment from "moment";
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import axios, { NEXT_RACE } from "../../axois/axios";
 import { MRDataRace, Race } from "../../axois/data-race";
+import { getTimeToRace } from "../../functions/getTimeToRace";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";
 import { textStyle } from "../../style/style";
@@ -41,23 +43,28 @@ export default function NextRace({ season = "" }: HeaderProps) {
   return (
     <View style={styles.header}>
       <Text style={styles.season}>Сезон {season}</Text>
-      <View style={style.container}>
+      <View style={styleNextRace.container}>
         <LoadingComponent isLoading={isLoading} />
         {nextRace && (
           <>
             <View>
-              <Text style={[style.nextRace, textStyle.header]}>Следующая гонка</Text>
-              <View style={style.img}>
+              <Text style={[styleNextRace.nextRace, textStyle.header]}>
+                Следующая гонка
+              </Text>
+              <View style={styleNextRace.img}>
                 <FlagIcons size="medium" name={nextRace?.Circuit.Location.country} />
-                <Text style={style.granPri}>{nextRace?.raceName}</Text>
+                <Text style={styleNextRace.granPri}>{nextRace?.raceName}</Text>
               </View>
             </View>
-            <View style={style.line} />
+            <View style={styleNextRace.line} />
             <RaceTime nextRace={nextRace} />
           </>
         )}
         {!nextRace && !isLoading && !isEndSeason && <ErrorComponent />}
         {isEndSeason && <Winter />}
+        <Text style={styles.timeForRace}>
+          {getTimeToRace(nextRace?.date, nextRace?.time)}
+        </Text>
       </View>
     </View>
   );
@@ -83,9 +90,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
   },
+  timeForRace: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    marginTop: 25,
+  },
 });
 
-const style = StyleSheet.create({
+const styleNextRace = StyleSheet.create({
   container: {
     borderRadius: 20,
     height: "60%",

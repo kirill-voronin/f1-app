@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../axois/axios";
-import { colors } from "../../../style/colors";
-import { MRDataAllWinners, StandingsList } from "../../../axois/data-all-winners";
-import AllWinnersCard from "../../../components/pilot-all-winners-card";
-import ErrorComponent from "../../../components/error";
-import LoadingComponent from "../../../components/loading";
-import Header from "../../../components/header";
+import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../../axois/axios";
+import { colors } from "../../../../style/colors";
+import { MRDataAllWinners, StandingsList } from "../../../../axois/data-all-winners";
+import AllWinnersCard from "../../../../components/cards/pilot-all-winners-card";
+import ErrorComponent from "../../../../components/error";
+import LoadingComponent from "../../../../components/loading";
 
 interface StatisticPilotsChampionshipProps {
   navigation: any;
@@ -50,7 +49,6 @@ const StatisticPilotsChampionship = ({
 
   return (
     <View style={styles.container}>
-      <Header title="Чемпионы мира" withBackButton navigtion={navigation} />
       {isError && <ErrorComponent color="#fff" />}
       <LoadingComponent isLoading={isLoading} />
       {champions.length !== 0 && (

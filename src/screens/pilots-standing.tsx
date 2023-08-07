@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
 import LoadingComponent from "../components/loading";
-import PilotCard from "../components/pilot-card";
-import { colors } from "../style/colors";
+import PilotCard from "../components/cards/pilot-card";
+import { getWikiId } from "../functions/getWikiId";
 
-export default function PilotsStanding() {
+interface PilotsStandingProps {
+  navigation: any;
+}
+
+export default function PilotsStanding({ navigation }: PilotsStandingProps) {
   const [pilots, setPilots] = useState<DriverStanding[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -31,17 +35,28 @@ export default function PilotsStanding() {
 
   const keyExtractor = (item: DriverStanding) => `pilot-${item.Driver.driverId}`;
 
+  const onPilotPressHandler = (pilot: DriverStanding) => {
+    const pilotWikiId = getWikiId(pilot.Driver.url);
+
+    navigation.navigate("PilotInformation", {
+      pilotWikiId,
+      pilot,
+    });
+  };
+
   const renderPilotCard = ({ item }: { item: DriverStanding }) => {
     const name = `${item.Driver.givenName} ${item.Driver.familyName}`;
     return (
-      <PilotCard
-        position={item.position}
-        driverName={name}
-        commandName={item?.Constructors?.[0]?.name ?? ""}
-        points={item.points}
-        nationality={item.Driver.nationality}
-        commandId={item?.Constructors?.[0]?.constructorId ?? ""}
-      />
+      <TouchableOpacity key={`touch-${name}`} onPress={() => onPilotPressHandler(item)}>
+        <PilotCard
+          position={item.position}
+          driverName={name}
+          commandName={item?.Constructors?.[0]?.name ?? ""}
+          points={item.points}
+          nationality={item.Driver.nationality}
+          commandId={item?.Constructors?.[0]?.constructorId ?? ""}
+        />
+      </TouchableOpacity>
     );
   };
 
