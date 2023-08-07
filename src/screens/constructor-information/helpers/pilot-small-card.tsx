@@ -70,7 +70,7 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
             )}
           </View>
           <View style={styles.textContainer}>
-            <Text style={[textStyle.headerWhite]}>
+            <Text style={[textStyle.headerWhite, { color: "#000" }]}>
               {number} {code}
             </Text>
           </View>

@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   constructorLogo: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: "#fff",
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 15,

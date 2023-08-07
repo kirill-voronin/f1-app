@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: "white",
+    color: "#000",
     fontSize: 20,
     fontWeight: "700",
     textAlign: "center",

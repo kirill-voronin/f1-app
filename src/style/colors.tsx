@@ -5,7 +5,7 @@ export const colors: any = {
   white: "#FFFFFF",
   black: "#000000",
   gray: "#858585",
-  statisticCard: "#323232",
+  statisticCard: "#fff",
   lightGrey: "#989898",
   mercedes: "#00D2BE",
   ferrari: "#DC0000",
