@@ -46,10 +46,10 @@ export default function Calendar({ navigation }: CalendarProps) {
           let lastRaces: Race[] = [];
           if (!isEndSeason) {
             nextRaces = allRaces.MRData.RaceTable.Races.filter(
-              (race) => Number(race.round) > Number(nextRace?.round)
+              (race) => Number(race.round) > Number(nextRace?.round),
             );
             lastRaces = allRaces.MRData.RaceTable.Races.filter(
-              (race) => Number(race.round) < Number(nextRace?.round)
+              (race) => Number(race.round) < Number(nextRace?.round),
             );
           } else {
             lastRaces = allRaces.MRData.RaceTable.Races;
@@ -72,7 +72,7 @@ export default function Calendar({ navigation }: CalendarProps) {
     isSprint: boolean,
     qualifyingTime: string,
     raceTime: string,
-    sprintTime?: string
+    sprintTime?: string,
   ) => {
     navigation.navigate("RaceInformation", {
       isSprint,
@@ -124,7 +124,7 @@ export default function Calendar({ navigation }: CalendarProps) {
               getLocalDateTime(race?.date, race?.time),
               race.Sprint
                 ? getLocalDateTime(race.Sprint.date, race.Sprint.time)
-                : undefined
+                : undefined,
             );
           }}>
           <RaceCard

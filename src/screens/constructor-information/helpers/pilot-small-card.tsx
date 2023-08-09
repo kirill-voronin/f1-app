@@ -20,7 +20,7 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
 
   useEffect(() => {
     fetch(
-      `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`
+      `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`,
     )
       .then((response) => response.text())
       .then((result) => {
@@ -36,15 +36,15 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`
+      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`,
     )
       .then((response) => response.text())
       .then((result) => {
         setCorrectPilotWikiId(
-          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"])
+          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
         );
         console.log(
-          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"])
+          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
         );
       })
       .catch((error) => {

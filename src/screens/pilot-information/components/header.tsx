@@ -24,7 +24,7 @@ const PilotInformationHeader = ({
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`
+      `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages&piprop=original&titles=${pilotWikiId}`,
     )
       .then((response) => response.text())
       .then((result) => {

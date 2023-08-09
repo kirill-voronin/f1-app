@@ -73,8 +73,8 @@ const ConstructorInformationScreen = ({
           data?.MRData.RaceTable.Races.filter(
             (value) =>
               Number(value.Results[0].FastestLap?.rank) === 1 ||
-              Number(value.Results[1].FastestLap?.rank) === 1
-          )
+              Number(value.Results[1].FastestLap?.rank) === 1,
+          ),
         );
         setIsResultsLoading(false);
       })
@@ -88,7 +88,7 @@ const ConstructorInformationScreen = ({
     setIsQualifyingLoading(true);
     axios
       .get(
-        `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`
+        `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`,
       )
       .then((response) => {
         const data: MRDataConstructorQualifying = response.data;
@@ -96,8 +96,8 @@ const ConstructorInformationScreen = ({
           data.MRData.RaceTable.Races.filter(
             (value) =>
               Number(value.QualifyingResults[0].position) === 1 ||
-              Number(value.QualifyingResults[1].position) === 1
-          )
+              Number(value.QualifyingResults[1].position) === 1,
+          ),
         );
         setIsQualifyingLoading(false);
       })
@@ -112,7 +112,7 @@ const ConstructorInformationScreen = ({
     podiums.toString(),
     constructor.wins,
     polePositions.length.toString(),
-    fastestLaps.length.toString()
+    fastestLaps.length.toString(),
   );
 
   const renderItem = (item: { item: Driver }) => {

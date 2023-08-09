@@ -29,7 +29,7 @@ export default function ConstructorsStanding({ navigation }: ConstructorStanding
       .then((response) => {
         const constructors: MRDataConstructorsStanding = response.data;
         setConstructors(
-          constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings
+          constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings,
         );
         setIsLoading(false);
       })

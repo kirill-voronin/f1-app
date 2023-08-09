@@ -3,7 +3,7 @@ export const smallCardData = (
   podiums: string,
   wins: string,
   polePositions: string,
-  fastestLaps: string
+  fastestLaps: string,
 ) => {
   return [
     {

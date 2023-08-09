@@ -41,17 +41,17 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
     podiums?.length.toString(),
     pilot.wins,
     polePositions.length.toString(),
-    fastestLaps.length.toString()
+    fastestLaps.length.toString(),
   );
 
   useEffect(() => {
     fetch(
-      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`
+      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`,
     )
       .then((response) => response.text())
       .then((result) => {
         setCorrectPilotWikiId(
-          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"])
+          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
         );
       })
       .catch((error) => console.log("error", error));
@@ -66,13 +66,13 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         setPilotResults(response.data);
         setPodiums(
           data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].position) <= 3
-          )
+            (value) => Number(value.Results[0].position) <= 3,
+          ),
         );
         setFastestLaps(
           data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].FastestLap.rank) === 1
-          )
+            (value) => Number(value.Results[0].FastestLap.rank) === 1,
+          ),
         );
         setIsResultsLoading(false);
       })
