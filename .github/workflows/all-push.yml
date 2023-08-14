@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: yarn prettier
+      - run: npx prettier --check .
       - run: yarn test:lint
       - run: yarn test:tsc
