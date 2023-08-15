@@ -1,12 +1,13 @@
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { colors } from "../../../style/colors";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
+import RaceInfoSprint from "./race-Information-sprint";
 import RaceInfoQualifying from "./race-information-qualifying";
 import RaceInfoRaceResult from "./race-information-race";
-import RaceInfoSprint from "./race-Information-sprint";
 import Header from "../../../components/header";
+import { colors } from "../../../style/colors";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -40,19 +41,19 @@ const RaceInformationStack = ({ navigation, route }: RaceInformationProps) => {
         <TopTab.Screen
           name="Квалификация"
           component={RaceInfoQualifying}
-          initialParams={{ round: round, qualifyingTime: qualifyingTime }}
+          initialParams={{ round, qualifyingTime }}
         />
         {isSprint && (
           <TopTab.Screen
             name="Спринт"
             component={RaceInfoSprint}
-            initialParams={{ round: round, sprintTime: sprintTime }}
+            initialParams={{ round, sprintTime }}
           />
         )}
         <TopTab.Screen
           name="Гонка"
           component={RaceInfoRaceResult}
-          initialParams={{ round: round, raceTime: raceTime }}
+          initialParams={{ round, raceTime }}
         />
       </TopTab.Navigator>
     </SafeAreaView>

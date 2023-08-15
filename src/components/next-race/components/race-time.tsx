@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
-import { Race } from "../../../axois/data-race";
+
 import RaceTimeRow from "./race-time-row";
+import { Race } from "../../../axois/data-race";
 
 interface RaceTimeProps {
   nextRace?: Race;
@@ -8,7 +9,7 @@ interface RaceTimeProps {
 
 export default function RaceTime({ nextRace }: RaceTimeProps) {
   // const [isSprint, setIsSprint] = useState<boolean>(false);
-  const isSprint = typeof nextRace?.Sprint !== "undefined" ? true : false;
+  const isSprint = typeof nextRace?.Sprint !== "undefined";
 
   const qualifying = (): JSX.Element => {
     return (

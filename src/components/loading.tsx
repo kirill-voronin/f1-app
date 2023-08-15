@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
+
 import { colors } from "../style/colors";
 
 interface LoadingComponentProps {

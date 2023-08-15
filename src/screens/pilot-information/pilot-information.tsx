@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { getCorrectPilotWikiId } from "../../functions/isRedirect";
-import PilotInformationHeader from "./components/header";
-import NationalityInformation from "../../components/detail-information/nationality-information";
+
 import { smallCardData as getSmallCardData } from "./components/data";
+import PilotInformationHeader from "./components/header";
 import StasticSmallCard, {
   StasticSmallCardProps,
 } from "./components/statistic-small-card";
-import { DriverStanding } from "../../axois/data-pilots";
 import axios from "../../axois/axios";
 import { PilotResults, Race } from "../../axois/data-pilot-result";
+import { DriverStanding } from "../../axois/data-pilots";
 import {
   MRDataQualifyingResults,
   Race as QualifyingRace,
 } from "../../axois/data-qualifying";
+import NationalityInformation from "../../components/detail-information/nationality-information";
 import LoadingComponent from "../../components/loading";
+import { getCorrectPilotWikiId } from "../../functions/isRedirect";
 
 interface PilotInformaionScreenProps {
   navigation: any;
@@ -41,20 +42,21 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
     podiums?.length.toString(),
     pilot.wins,
     polePositions.length.toString(),
-    fastestLaps.length.toString()
+    fastestLaps.length.toString(),
   );
 
   useEffect(() => {
     fetch(
-      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`
+      `https://en.wikipedia.org/w/api.php?action=parse&page=${pilotWikiId}&format=json&prop=wikitext`,
     )
       .then((response) => response.text())
       .then((result) => {
         setCorrectPilotWikiId(
-          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"])
+          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
         );
       })
       .catch((error) => console.log("error", error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -66,13 +68,13 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         setPilotResults(response.data);
         setPodiums(
           data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].position) <= 3
-          )
+            (value) => Number(value.Results[0].position) <= 3,
+          ),
         );
         setFastestLaps(
           data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].FastestLap.rank) === 1
-          )
+            (value) => Number(value.Results[0].FastestLap.rank) === 1,
+          ),
         );
         setIsResultsLoading(false);
       })
@@ -80,6 +82,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         console.log("error", err);
         setIsResultsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,6 +98,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         console.log("error", err);
         setIsQualifyingLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderItem = (item: { item: StasticSmallCardProps }) => {

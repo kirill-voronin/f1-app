@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
 import ControlIcons from "../../../icons/controls-icons";
 import { colors } from "../../../style/colors";
 

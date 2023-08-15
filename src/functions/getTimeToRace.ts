@@ -6,7 +6,7 @@ export function getTimeToRace(date?: string, time?: string): string {
 
   let timeToRace = Math.floor(
     Math.abs(new Date(`${date}T${time}`).getTime() - currentDate.getTime()) /
-      (1000 * 60 * 60 * 24) // ms->ss->mm->hh->dd
+      (1000 * 60 * 60 * 24), // ms->ss->mm->hh->dd
   );
 
   if (timeToRace >= 1) {
@@ -15,7 +15,7 @@ export function getTimeToRace(date?: string, time?: string): string {
 
   timeToRace = Math.floor(
     Math.abs(new Date(`${date}T${time}`).getTime() - currentDate.getTime()) /
-      (1000 * 60 * 60) // ms->ss->mm->hh
+      (1000 * 60 * 60), // ms->ss->mm->hh
   );
 
   return `До гонки ${timeToRace} ${getCorrectHourName(timeToRace)}`;

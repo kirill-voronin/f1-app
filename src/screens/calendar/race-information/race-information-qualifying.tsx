@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+
 import axios, { year } from "../../../axois/axios";
 import {
   MRDataQualifyingResults,
   QualifyingResult,
 } from "../../../axois/data-qualifying";
+import PilotCard from "../../../components/cards/pilot-card";
 import FutureRace from "../../../components/future-race";
 import LoadingComponent from "../../../components/loading";
-import PilotCard from "../../../components/cards/pilot-card";
 import { colors } from "../../../style/colors";
 
 interface RaceInfoQualifyingProps {
@@ -29,6 +30,7 @@ const RaceInfoQualifying = ({ route }: RaceInfoQualifyingProps) => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [round]);
 
   const renderPilotCard = ({ item }: { item: QualifyingResult }) => {

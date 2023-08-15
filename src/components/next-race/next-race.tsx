@@ -1,6 +1,7 @@
-import moment from "moment";
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
+import RaceTime from "./components/race-time";
 import axios, { NEXT_RACE } from "../../axois/axios";
 import { MRDataRace, Race } from "../../axois/data-race";
 import { getTimeToRace } from "../../functions/getTimeToRace";
@@ -10,7 +11,6 @@ import { textStyle } from "../../style/style";
 import ErrorComponent from "../error";
 import LoadingComponent from "../loading";
 import Winter from "../winter";
-import RaceTime from "./components/race-time";
 
 interface HeaderProps {
   season?: string;
@@ -33,7 +33,7 @@ export default function NextRace({ season = "" }: HeaderProps) {
           // setNextRace(last.MRData.RaceTable.Races[0]);
           setIsLoading(false);
         })
-        .catch((err) => {
+        .catch(() => {
           setIsLoading(false);
         });
     };

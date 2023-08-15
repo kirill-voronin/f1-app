@@ -3,70 +3,70 @@ export interface MRDataQualifyingResults {
 }
 
 export interface MRData {
-  xmlns:     string;
-  series:    string;
-  url:       string;
-  limit:     string;
-  offset:    string;
-  total:     string;
+  xmlns: string;
+  series: string;
+  url: string;
+  limit: string;
+  offset: string;
+  total: string;
   RaceTable: RaceTable;
 }
 
 export interface RaceTable {
   season: string;
-  round:  string;
-  Races:  Race[];
+  round: string;
+  Races: Race[];
 }
 
 export interface Race {
-  season:            string;
-  round:             string;
-  url:               string;
-  raceName:          string;
-  Circuit:           Circuit;
-  date:              Date;
-  time:              string;
+  season: string;
+  round: string;
+  url: string;
+  raceName: string;
+  Circuit: Circuit;
+  date: Date;
+  time: string;
   QualifyingResults: QualifyingResult[];
 }
 
 export interface Circuit {
-  circuitId:   string;
-  url:         string;
+  circuitId: string;
+  url: string;
   circuitName: string;
-  Location:    Location;
+  Location: Location;
 }
 
 export interface Location {
-  lat:      string;
-  long:     string;
+  lat: string;
+  long: string;
   locality: string;
-  country:  string;
+  country: string;
 }
 
 export interface QualifyingResult {
-  number:      string;
-  position:    string;
-  Driver:      Driver;
+  number: string;
+  position: string;
+  Driver: Driver;
   Constructor: Constructor;
-  Q1:          string;
-  Q2?:         string;
-  Q3?:         string;
+  Q1: string;
+  Q2?: string;
+  Q3?: string;
 }
 
 export interface Constructor {
   constructorId: string;
-  url:           string;
-  name:          string;
-  nationality:   string;
+  url: string;
+  name: string;
+  nationality: string;
 }
 
 export interface Driver {
-  driverId:        string;
+  driverId: string;
   permanentNumber: string;
-  code:            string;
-  url:             string;
-  givenName:       string;
-  familyName:      string;
-  dateOfBirth:     Date;
-  nationality:     string;
+  code: string;
+  url: string;
+  givenName: string;
+  familyName: string;
+  dateOfBirth: Date;
+  nationality: string;
 }
