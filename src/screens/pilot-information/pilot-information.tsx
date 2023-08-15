@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { getCorrectPilotWikiId } from "../../functions/isRedirect";
-import PilotInformationHeader from "./components/header";
-import NationalityInformation from "../../components/detail-information/nationality-information";
+
 import { smallCardData as getSmallCardData } from "./components/data";
+import PilotInformationHeader from "./components/header";
 import StasticSmallCard, {
   StasticSmallCardProps,
 } from "./components/statistic-small-card";
-import { DriverStanding } from "../../axois/data-pilots";
 import axios from "../../axois/axios";
 import { PilotResults, Race } from "../../axois/data-pilot-result";
+import { DriverStanding } from "../../axois/data-pilots";
 import {
   MRDataQualifyingResults,
   Race as QualifyingRace,
 } from "../../axois/data-qualifying";
+import NationalityInformation from "../../components/detail-information/nationality-information";
 import LoadingComponent from "../../components/loading";
+import { getCorrectPilotWikiId } from "../../functions/isRedirect";
 
 interface PilotInformaionScreenProps {
   navigation: any;
@@ -55,6 +56,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         );
       })
       .catch((error) => console.log("error", error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         console.log("error", err);
         setIsResultsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -95,6 +98,7 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
         console.log("error", err);
         setIsQualifyingLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderItem = (item: { item: StasticSmallCardProps }) => {

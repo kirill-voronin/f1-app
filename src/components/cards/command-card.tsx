@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+
 import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
-import { colors } from "../../style/colors";
+import { colors, constructorsColors } from "../../style/colors";
 
 interface CommandCardProps {
   position: string;
@@ -25,7 +26,12 @@ export default function CommandCard({
       <View style={styles.positionBox}>
         <Text style={textStyle.position}>{position}</Text>
       </View>
-      <View style={[styles.commandColorBox, { backgroundColor: colors[commandId] }]} />
+      <View
+        style={[
+          styles.commandColorBox,
+          { backgroundColor: constructorsColors[commandId] },
+        ]}
+      />
       <View style={styles.flagBox}>
         <ConstructorIcons name={commandId}></ConstructorIcons>
       </View>

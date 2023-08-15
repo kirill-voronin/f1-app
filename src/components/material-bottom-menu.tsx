@@ -1,12 +1,12 @@
-import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { colors } from "../style/colors";
+import React from "react";
+
 import MenuIcons from "../icons/menu-icons";
-import PilotsStanding from "../screens/pilots-standing";
-import ConstructorsStanding from "../screens/constructor-standing";
 import Calendar from "../screens/calendar/calendar";
-import StatisticAll from "../screens/statistics/statistic-all";
+import ConstructorsStanding from "../screens/constructor-standing";
+import PilotsStanding from "../screens/pilots-standing";
 import ChampionsStack from "../screens/statistics/screens/champions/statistic-championship-stack";
+import { colors } from "../style/colors";
 
 const MaterialTabs = createMaterialBottomTabNavigator();
 

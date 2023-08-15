@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { MRDataRace, Race } from "../../axois/data-race";
+
 import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
+import { MRDataRace, Race } from "../../axois/data-race";
 import RaceCard from "../../components/cards/race-card";
-import { textStyle } from "../../style/style";
-import { getLocalDateTime } from "../../functions/getLocalDate";
-import NextRace from "../../components/next-race/next-race";
 import LoadingComponent from "../../components/loading";
+import NextRace from "../../components/next-race/next-race";
+import { getLocalDateTime } from "../../functions/getLocalDate";
+import { textStyle } from "../../style/style";
 
 interface CalendarProps {
   navigation: any;
@@ -57,7 +58,7 @@ export default function Calendar({ navigation }: CalendarProps) {
 
           setNextRaces(nextRaces);
           setLastRaces(lastRaces);
-          if (lastRaces.length != 0 || nextRaces.length != 0) {
+          if (lastRaces.length !== 0 || nextRaces.length !== 0) {
             setIsLoading(false);
           }
         })
@@ -94,9 +95,7 @@ export default function Calendar({ navigation }: CalendarProps) {
       return (
         <TouchableOpacity
           key={`touch-${race.raceName}`}
-          onPress={() =>
-            onRaceLastCardPressHandler(race.round, race.Sprint ? true : false)
-          }>
+          onPress={() => onRaceLastCardPressHandler(race.round, !!race.Sprint)}>
           <RaceCard
             key={race.raceName}
             name={race.raceName}
@@ -104,7 +103,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             country={race.Circuit.Location.country}
             startDate={race?.FirstPractice?.date}
             endDate={race.date}
-            isSprint={race.Sprint ? true : false}
+            isSprint={!!race.Sprint}
           />
         </TouchableOpacity>
       );
@@ -117,7 +116,7 @@ export default function Calendar({ navigation }: CalendarProps) {
         <TouchableOpacity
           key={`touch-${race.raceName}`}
           onPress={() => {
-            const isSprint = race.Sprint ? true : false;
+            const isSprint = !!race.Sprint;
             onRaceNextCardPressHandler(
               isSprint,
               getLocalDateTime(race?.Qualifying?.date, race?.Qualifying?.time),
@@ -134,7 +133,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             country={race.Circuit.Location.country}
             startDate={race?.FirstPractice?.date}
             endDate={race.date}
-            isSprint={race.Sprint ? true : false}
+            isSprint={!!race.Sprint}
           />
         </TouchableOpacity>
       );
@@ -146,7 +145,7 @@ export default function Calendar({ navigation }: CalendarProps) {
       <NextRace season={nextRace?.season} />
       <LoadingComponent isLoading={isLoading} />
       <ScrollView>
-        {nextRaces.length != 0 && (
+        {nextRaces.length !== 0 && (
           <>
             <Text style={[textStyle.headerWhite, styles.header]}>
               Предстоящие события
@@ -154,7 +153,7 @@ export default function Calendar({ navigation }: CalendarProps) {
             {renderNextRaceCards(nextRaces)}
           </>
         )}
-        {lastRaces.length != 0 && (
+        {lastRaces.length !== 0 && (
           <>
             <Text style={[textStyle.headerWhite, styles.header]}>
               Завершенные события

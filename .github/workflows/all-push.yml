@@ -1,0 +1,11 @@
+name: push-new-branch
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: yarn install
+      - run: npx prettier --check .
+      - run: yarn run eslint .
+      - run: yarn run tsc

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import axios, { PILOTS_STANDING } from "../axois/axios";
 import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
+import PilotCard from "../components/cards/pilot-card";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
 import LoadingComponent from "../components/loading";
-import PilotCard from "../components/cards/pilot-card";
 import { getWikiId } from "../functions/getWikiId";
 
 interface PilotsStandingProps {
@@ -72,7 +73,7 @@ export default function PilotsStanding({ navigation }: PilotsStandingProps) {
         </View>
       )}
       <LoadingComponent isLoading={isLoading} />
-      {pilots?.length != 0 && (
+      {pilots?.length !== 0 && (
         <FlatList
           data={pilots}
           keyExtractor={keyExtractor}

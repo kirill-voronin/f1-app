@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import axios, { CONSTRUCTORS_STANDING } from "../axois/axios";
 import {
   ConstructorStanding,
@@ -77,7 +78,7 @@ export default function ConstructorsStanding({ navigation }: ConstructorStanding
         </View>
       )}
       <LoadingComponent isLoading={isLoading} />
-      {constructors?.length != 0 && (
+      {constructors?.length !== 0 && (
         <FlatList
           data={constructors}
           keyExtractor={keyExtractor}

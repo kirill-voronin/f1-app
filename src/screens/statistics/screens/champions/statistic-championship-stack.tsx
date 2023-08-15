@@ -1,10 +1,11 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { StyleSheet, Text } from "react-native";
-import { colors } from "../../../../style/colors";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../../../../components/header";
-import StatisticPilotsChampionship from "./statistic-pilots-championship";
+
 import StaisticCommandsChampionship from "./statistic-commands-championship";
+import StatisticPilotsChampionship from "./statistic-pilots-championship";
+import Header from "../../../../components/header";
+import { colors } from "../../../../style/colors";
 
 const TopTab = createMaterialTopTabNavigator();
 

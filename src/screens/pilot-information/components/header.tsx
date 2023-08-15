@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+
 import { DriverStanding } from "../../../axois/data-pilots";
 import Header from "../../../components/header";
-import ControlIcons from "../../../icons/controls-icons";
+import LoadingComponent from "../../../components/loading";
 import { colors } from "../../../style/colors";
 import { textStyle } from "../../../style/style";
-import LoadingComponent from "../../../components/loading";
 
 interface PilotInformationHeaderProps {
   navigation: any;
@@ -35,6 +35,7 @@ const PilotInformationHeader = ({
         console.log("error", error);
         setIsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

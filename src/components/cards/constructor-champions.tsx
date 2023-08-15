@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FlagIcons from "../../icons/flag-icons/flag-icons";
-import { colors } from "../../style/colors";
+
 import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
+import { colors } from "../../style/colors";
 
 interface AllWinnersCardProps {
   year: string;

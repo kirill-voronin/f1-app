@@ -1,15 +1,15 @@
-import React, { Component, useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+
 import axios, { ALL_CONSTRUCTORS_CHAMPIONS } from "../../../../axois/axios";
 import {
   MRDataConstructorsChampions,
   StandingsList,
 } from "../../../../axois/data-all-constructors-champions";
-import AllWinnersCard from "../../../../components/cards/pilot-all-winners-card";
+import ConstructorChampionCard from "../../../../components/cards/constructor-champions";
 import ErrorComponent from "../../../../components/error";
 import LoadingComponent from "../../../../components/loading";
 import { colors } from "../../../../style/colors";
-import ConstructorChampionCard from "../../../../components/cards/constructor-champions";
 
 const StaisticCommandsChampionship = () => {
   const [champions, setChampions] = useState<StandingsList[]>([]);

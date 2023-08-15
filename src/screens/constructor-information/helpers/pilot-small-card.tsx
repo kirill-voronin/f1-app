@@ -1,10 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { colors } from "../../../style/colors";
-import { getCorrectPilotWikiId } from "../../../functions/isRedirect";
-import { getWikiId } from "../../../functions/getWikiId";
-import { textStyle } from "../../../style/style";
+
 import LoadingComponent from "../../../components/loading";
+import { getWikiId } from "../../../functions/getWikiId";
+import { getCorrectPilotWikiId } from "../../../functions/isRedirect";
+import { colors } from "../../../style/colors";
+import { textStyle } from "../../../style/style";
 
 export interface PilotSmallCardProps {
   code?: string;
@@ -31,6 +32,7 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
         console.log("error", error);
         setIsLoading(true);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [correctPilotWikiId]);
 
   useEffect(() => {
@@ -51,6 +53,7 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
         console.log("error", error);
         setIsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
