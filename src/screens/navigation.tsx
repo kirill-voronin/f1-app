@@ -1,13 +1,12 @@
-import React from "react";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MaterialBottomMenu from "../components/material-bottom-menu";
+import React from "react";
+
 import RaceInformationStack from "./calendar/race-information/race-information-stack";
-import PilotInformationScreen from "./pilot-information/pilot-information";
 import ConstructorInformationScreen from "./constructor-information/constructor-information";
-import StatisticPilotsChampionship from "./statistics/screens/champions/statistic-pilots-championship";
+import PilotInformationScreen from "./pilot-information/pilot-information";
 import ChampionsStack from "./statistics/screens/champions/statistic-championship-stack";
+import MaterialBottomMenu from "../components/material-bottom-menu";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,14 +30,5 @@ const Navigation = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2c3e50",
-  },
-});
 
 export default Navigation;

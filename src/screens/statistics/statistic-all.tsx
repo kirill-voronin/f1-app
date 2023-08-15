@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
-import Header from "../../components/header";
+
 import StatisticCard from "../../components/cards/statistic-card";
+import Header from "../../components/header";
 import { colors } from "../../style/colors";
 
 const StatisticAll = ({ navigation }: any) => {

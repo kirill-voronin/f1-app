@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+
 import ControlIcons from "../../icons/controls-icons";
 import StatisticIcons from "../../icons/statistic-icons";
 import { colors } from "../../style/colors";

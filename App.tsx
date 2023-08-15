@@ -1,9 +1,8 @@
-import { colors } from "./src/style/colors";
-import { Platform, StatusBar, PermissionsAndroid, Alert } from "react-native";
-import Navigation from "./src/screens/navigation";
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { useEffect, useState } from "react";
+import { StatusBar } from "react-native";
+
+import Navigation from "./src/screens/navigation";
+import { colors } from "./src/style/colors";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
-import { ConstructorStanding } from "../../axois/data-constructors";
-import Header from "../../components/header";
-import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
-import { colors } from "../../style/colors";
-import NationalityInformation from "../../components/detail-information/nationality-information";
-import { textStyle } from "../../style/style";
+
 import PilotSmallCard from "./helpers/pilot-small-card";
 import axios from "../../axois/axios";
-import { Driver } from "../../axois/data-pilot-result";
-import { smallCardData as getSmallCardData } from "../constructor-information/helpers/data";
-import StasticSmallCard, {
-  StasticSmallCardProps,
-} from "../pilot-information/components/statistic-small-card";
-import { MRDataConstructorResults, Race } from "../../axois/data-constructor-results";
 import {
   MRDataConstructorQualifying,
   Race as RaceConstructorQualifying,
 } from "../../axois/data-constructor-qualifying";
+import { MRDataConstructorResults, Race } from "../../axois/data-constructor-results";
+import { ConstructorStanding } from "../../axois/data-constructors";
+import { Driver } from "../../axois/data-pilot-result";
+import NationalityInformation from "../../components/detail-information/nationality-information";
+import Header from "../../components/header";
 import LoadingComponent from "../../components/loading";
+import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
+import { colors } from "../../style/colors";
+import { textStyle } from "../../style/style";
+import { smallCardData as getSmallCardData } from "../constructor-information/helpers/data";
+import StasticSmallCard, {
+  StasticSmallCardProps,
+} from "../pilot-information/components/statistic-small-card";
 
 interface ConstructorInformationScreenProps {
   navigation: any;
@@ -55,6 +56,7 @@ const ConstructorInformationScreen = ({
         });
     };
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -73,8 +75,8 @@ const ConstructorInformationScreen = ({
           data?.MRData.RaceTable.Races.filter(
             (value) =>
               Number(value.Results[0].FastestLap?.rank) === 1 ||
-              Number(value.Results[1].FastestLap?.rank) === 1
-          )
+              Number(value.Results[1].FastestLap?.rank) === 1,
+          ),
         );
         setIsResultsLoading(false);
       })
@@ -82,13 +84,14 @@ const ConstructorInformationScreen = ({
         console.log("error", err);
         setIsResultsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setIsQualifyingLoading(true);
     axios
       .get(
-        `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`
+        `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`,
       )
       .then((response) => {
         const data: MRDataConstructorQualifying = response.data;
@@ -96,8 +99,8 @@ const ConstructorInformationScreen = ({
           data.MRData.RaceTable.Races.filter(
             (value) =>
               Number(value.QualifyingResults[0].position) === 1 ||
-              Number(value.QualifyingResults[1].position) === 1
-          )
+              Number(value.QualifyingResults[1].position) === 1,
+          ),
         );
         setIsQualifyingLoading(false);
       })
@@ -105,6 +108,7 @@ const ConstructorInformationScreen = ({
         console.log(err);
         setIsQualifyingLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const statisticCardsData = getSmallCardData(
@@ -112,7 +116,7 @@ const ConstructorInformationScreen = ({
     podiums.toString(),
     constructor.wins,
     polePositions.length.toString(),
-    fastestLaps.length.toString()
+    fastestLaps.length.toString(),
   );
 
   const renderItem = (item: { item: Driver }) => {

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+
 import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../../axois/axios";
-import { colors } from "../../../../style/colors";
 import { MRDataAllWinners, StandingsList } from "../../../../axois/data-all-winners";
 import AllWinnersCard from "../../../../components/cards/pilot-all-winners-card";
 import ErrorComponent from "../../../../components/error";
 import LoadingComponent from "../../../../components/loading";
+import { colors } from "../../../../style/colors";
 
 interface StatisticPilotsChampionshipProps {
   navigation: any;

@@ -1,7 +1,7 @@
 export function getAge(date: Date): string {
   const age = Math.floor(
     (new Date().getTime() - new Date(date.toString()).getTime()) /
-      (24 * 3600 * 365.25 * 1000)
+      (24 * 3600 * 365.25 * 1000),
   ).toString();
 
   switch (age[age.length - 1]) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";
 

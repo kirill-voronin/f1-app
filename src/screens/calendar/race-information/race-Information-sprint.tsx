@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+
 import axios, { year } from "../../../axois/axios";
 import { MRDataSprintResults, SprintResult } from "../../../axois/data-sprint-results";
+import PilotCard from "../../../components/cards/pilot-card";
 import FutureRace from "../../../components/future-race";
 import LoadingComponent from "../../../components/loading";
-import PilotCard from "../../../components/cards/pilot-card";
 import { colors } from "../../../style/colors";
 
 interface RaceInfoSprintProps {
@@ -26,6 +27,7 @@ const RaceInfoSprint = ({ route }: RaceInfoSprintProps) => {
         setIsLoading(false);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [round]);
 
   const renderPilotCard = ({ item }: { item: SprintResult }) => {

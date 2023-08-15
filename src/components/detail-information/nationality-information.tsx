@@ -1,11 +1,11 @@
 import moment from "moment";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
 import { getAge } from "../../functions/getAge";
 import ConstructorIcons from "../../icons/constructor-icons/constructors-icons";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";
-import { DriverStanding } from "../../axois/data-pilots";
 
 interface NationalityInformationProps {
   type: "nationality" | "constructor";
@@ -36,7 +36,7 @@ const NationalityInformation = ({
           <Text style={styles.text}>{mainText}</Text>
           {birthday && (
             <Text style={[styles.text]}>
-              {moment(birthday).format("DD.MM.YYYY")} ({getAge(birthday!!)})
+              {moment(birthday).format("DD.MM.YYYY")} ({getAge(birthday!)})
             </Text>
           )}
         </View>

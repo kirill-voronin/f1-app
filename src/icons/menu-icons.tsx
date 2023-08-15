@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { Path, Rect, Symbol, Use } from "react-native-svg";
+import Svg, { Path, Symbol, Use } from "react-native-svg";
 
 interface IconsProps {
   name: string;

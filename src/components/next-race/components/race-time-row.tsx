@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
-import { textStyle } from "../../../style/style";
 import moment from "moment";
+import { StyleSheet, Text, View } from "react-native";
+
+import { textStyle } from "../../../style/style";
 import "moment/locale/ru";
 
 interface RaceTimeRowProps {
