@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npx prettier --check .
-      - run: yarn test:lint
-      - run: yarn test:tsc
+      - run: yarn run test:lint
+      - run: yarn run test:tsc
