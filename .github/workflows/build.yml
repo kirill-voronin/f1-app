@@ -1,0 +1,17 @@
+name: build-apk
+on:
+  push:
+    branches: main
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: yarn install
+      - run: eas build --profile preview --platform android
+  build-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: yarn install
+      - run: eas build --profile production --platform android
