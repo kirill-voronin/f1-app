@@ -12,4 +12,4 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
       - run: yarn install
-      - run: eas build --profile production --platform android
+      - run: eas build -p --profile production --platform android --non-interactive
