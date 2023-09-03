@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
-import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../../axois/axios";
-import { MRDataAllWinners, StandingsList } from "../../../../axois/data-all-winners";
+import axios, { ALL_PILOTS_CHAMPIONS_STANDING } from "../../../../api/axios";
+import { RequestModel, StandingsList } from "../../../../api/interfaces";
 import AllWinnersCard from "../../../../components/cards/pilot-all-winners-card";
 import ErrorComponent from "../../../../components/error";
 import LoadingComponent from "../../../../components/loading";
@@ -24,8 +24,8 @@ const StatisticPilotsChampionship = ({
     axios
       .get(ALL_PILOTS_CHAMPIONS_STANDING)
       .then((response) => {
-        const thisChampions: MRDataAllWinners = response.data;
-        setChampions(thisChampions.MRData.StandingsTable.StandingsLists.reverse());
+        const thisChampions: RequestModel = response.data;
+        setChampions(thisChampions.MRData.StandingsTable?.StandingsLists.reverse() || []);
         setIsLoading(false);
       })
       .catch(() => {
@@ -37,13 +37,13 @@ const StatisticPilotsChampionship = ({
   const keyExtractor = (item: any) => `shedules-${item.season}`;
 
   const renderPilotCard = ({ item }: { item: StandingsList }) => {
-    const name = `${item.DriverStandings[0].Driver.givenName} ${item.DriverStandings[0].Driver.familyName}`;
+    const name = `${item.DriverStandings?.[0].Driver.givenName} ${item.DriverStandings?.[0].Driver.familyName}`;
     return (
       <AllWinnersCard
         year={item.season}
         driverName={name}
-        commandName={item.DriverStandings[0].Constructors[0].name}
-        nationality={item.DriverStandings[0].Driver.nationality.replace(" ", "")}
+        commandName={item.DriverStandings?.[0].Constructors[0].name}
+        nationality={item.DriverStandings?.[0].Driver.nationality.replace(" ", "") || ""}
       />
     );
   };

@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 
 import PilotSmallCard from "./helpers/pilot-small-card";
-import axios from "../../axois/axios";
-import {
-  MRDataConstructorQualifying,
-  Race as RaceConstructorQualifying,
-} from "../../axois/data-constructor-qualifying";
-import { MRDataConstructorResults, Race } from "../../axois/data-constructor-results";
-import { ConstructorStanding } from "../../axois/data-constructors";
-import { Driver } from "../../axois/data-pilot-result";
+import axios from "../../api/axios";
+import { ConstructorStanding, Driver, Race, RequestModel } from "../../api/interfaces";
 import NationalityInformation from "../../components/detail-information/nationality-information";
 import Header from "../../components/header";
 import LoadingComponent from "../../components/loading";
@@ -34,7 +28,7 @@ const ConstructorInformationScreen = ({
   const [pilots, setPilots] = useState<any[]>([]);
   const [podiums, setPodiums] = useState<number>(0);
   const [fastestLaps, setFastestLaps] = useState<Race[]>([]);
-  const [polePositions, setPolePositions] = useState<RaceConstructorQualifying[]>([]);
+  const [polePositions, setPolePositions] = useState<Race[]>([]);
 
   const [isDriversLoading, setIsDriversLoading] = useState<boolean>(false);
   const [isResultsLoading, setIsResultsLoading] = useState<boolean>(false);
@@ -64,19 +58,19 @@ const ConstructorInformationScreen = ({
     axios
       .get(`current/constructors/${constructor.Constructor.constructorId}/results.json`)
       .then((response) => {
-        const data: MRDataConstructorResults = response.data;
+        const data: RequestModel = response.data;
         setPodiums(0);
-        data.MRData.RaceTable.Races.forEach((race) => {
-          race.Results.forEach((pilotResult) => {
+        data.MRData.RaceTable?.Races.forEach((race) => {
+          race.Results?.forEach((pilotResult) => {
             if (Number(pilotResult.position) <= 3) setPodiums((prev) => (prev += 1));
           });
         });
         setFastestLaps(
-          data?.MRData.RaceTable.Races.filter(
+          data?.MRData.RaceTable?.Races.filter(
             (value) =>
-              Number(value.Results[0].FastestLap?.rank) === 1 ||
-              Number(value.Results[1].FastestLap?.rank) === 1,
-          ),
+              Number(value.Results?.[0].FastestLap?.rank) === 1 ||
+              Number(value.Results?.[1].FastestLap?.rank) === 1,
+          ) || [],
         );
         setIsResultsLoading(false);
       })
@@ -94,13 +88,13 @@ const ConstructorInformationScreen = ({
         `/current/constructors/${constructor.Constructor.constructorId}/qualifying.json`,
       )
       .then((response) => {
-        const data: MRDataConstructorQualifying = response.data;
+        const data: RequestModel = response.data;
         setPolePositions(
-          data.MRData.RaceTable.Races.filter(
+          data.MRData.RaceTable?.Races.filter(
             (value) =>
-              Number(value.QualifyingResults[0].position) === 1 ||
-              Number(value.QualifyingResults[1].position) === 1,
-          ),
+              Number(value.QualifyingResults?.[0].position) === 1 ||
+              Number(value.QualifyingResults?.[1].position) === 1,
+          ) || [],
         );
         setIsQualifyingLoading(false);
       })

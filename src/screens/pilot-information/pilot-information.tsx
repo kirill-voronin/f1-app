@@ -6,13 +6,8 @@ import PilotInformationHeader from "./components/header";
 import StasticSmallCard, {
   StasticSmallCardProps,
 } from "./components/statistic-small-card";
-import axios from "../../axois/axios";
-import { PilotResults, Race } from "../../axois/data-pilot-result";
-import { DriverStanding } from "../../axois/data-pilots";
-import {
-  MRDataQualifyingResults,
-  Race as QualifyingRace,
-} from "../../axois/data-qualifying";
+import axios from "../../api/axios";
+import { DriverStanding, Race, RequestModel } from "../../api/interfaces";
 import NationalityInformation from "../../components/detail-information/nationality-information";
 import LoadingComponent from "../../components/loading";
 import { getCorrectPilotWikiId } from "../../functions/isRedirect";
@@ -28,10 +23,10 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
   const pilotWikiId = route.params?.pilotWikiId || "";
   const [correctPilotWikiId, setCorrectPilotWikiId] = useState<string>();
 
-  const [pilotResults, setPilotResults] = useState<PilotResults>();
+  const [pilotResults, setPilotResults] = useState<RequestModel>();
   const [podiums, setPodiums] = useState<Race[]>([]);
   const [fastestLaps, setFastestLaps] = useState<Race[]>([]);
-  const [polePositions, setPolePositions] = useState<QualifyingRace[]>([]);
+  const [polePositions, setPolePositions] = useState<Race[]>([]);
 
   const [isResultsLoading, setIsResultsLoading] = useState<boolean>(false);
   const [isQualifyingLoading, setIsQualifyingLoading] = useState<boolean>(false);
@@ -64,17 +59,17 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
     axios
       .get(`/current/drivers/${pilot.Driver.driverId}/results.json`)
       .then((response) => {
-        const data: PilotResults = response.data;
+        const data: RequestModel = response.data;
         setPilotResults(response.data);
         setPodiums(
-          data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].position) <= 3,
-          ),
+          data?.MRData.RaceTable?.Races.filter(
+            (value) => Number(value.Results?.[0].position) <= 3,
+          ) || [],
         );
         setFastestLaps(
-          data?.MRData.RaceTable.Races.filter(
-            (value) => Number(value.Results[0].FastestLap.rank) === 1,
-          ),
+          data?.MRData.RaceTable?.Races.filter(
+            (value) => Number(value.Results?.[0].FastestLap?.rank) === 1,
+          ) || [],
         );
         setIsResultsLoading(false);
       })
@@ -90,8 +85,8 @@ const PilotInformationScreen = ({ navigation, route }: PilotInformaionScreenProp
     axios
       .get(`/current/drivers/${pilot.Driver.driverId}/qualifying/1.json`)
       .then((response) => {
-        const data: MRDataQualifyingResults = response.data;
-        setPolePositions(data.MRData.RaceTable.Races);
+        const data: RequestModel = response.data;
+        setPolePositions(data.MRData.RaceTable?.Races || []);
         setIsQualifyingLoading(false);
       })
       .catch((err) => {

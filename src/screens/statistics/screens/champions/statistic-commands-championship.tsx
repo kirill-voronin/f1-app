@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import axios, { ALL_CONSTRUCTORS_CHAMPIONS } from "../../../../axois/axios";
-import {
-  MRDataConstructorsChampions,
-  StandingsList,
-} from "../../../../axois/data-all-constructors-champions";
+import axios, { ALL_CONSTRUCTORS_CHAMPIONS } from "../../../../api/axios";
+import { RequestModel, StandingsList } from "../../../../api/interfaces";
 import ConstructorChampionCard from "../../../../components/cards/constructor-champions";
 import ErrorComponent from "../../../../components/error";
 import LoadingComponent from "../../../../components/loading";
@@ -21,8 +18,8 @@ const StaisticCommandsChampionship = () => {
     axios
       .get(ALL_CONSTRUCTORS_CHAMPIONS)
       .then((response) => {
-        const thisChampions: MRDataConstructorsChampions = response.data;
-        setChampions(thisChampions.MRData.StandingsTable.StandingsLists.reverse());
+        const thisChampions: RequestModel = response.data;
+        setChampions(thisChampions.MRData.StandingsTable?.StandingsLists.reverse() || []);
         setIsLoading(false);
       })
       .catch(() => {
@@ -37,8 +34,8 @@ const StaisticCommandsChampionship = () => {
     return (
       <ConstructorChampionCard
         year={item.season}
-        constructorName={item.ConstructorStandings[0].Constructor.name}
-        constructorId={item.ConstructorStandings[0].Constructor.constructorId}
+        constructorName={item.ConstructorStandings?.[0].Constructor.name}
+        constructorId={item.ConstructorStandings?.[0].Constructor.constructorId || ""}
       />
     );
   };

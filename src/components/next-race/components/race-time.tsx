@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import RaceTimeRow from "./race-time-row";
-import { Race } from "../../../axois/data-race";
+import { Race } from "../../../api/data-race";
 
 interface RaceTimeProps {
   nextRace?: Race;

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import axios, { PILOTS_STANDING } from "../axois/axios";
-import { DriverStanding, MRDataPilotsStanding } from "../axois/data-pilots";
+import axios, { PILOTS_STANDING } from "../api/axios";
+import { DriverStanding, RequestModel } from "../api/interfaces";
 import PilotCard from "../components/cards/pilot-card";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
@@ -24,8 +24,8 @@ export default function PilotsStanding({ navigation }: PilotsStandingProps) {
     axios
       .get(PILOTS_STANDING)
       .then((response) => {
-        const thisNextRace: MRDataPilotsStanding = response.data;
-        setPilots(thisNextRace.MRData.StandingsTable.StandingsLists[0]?.DriverStandings);
+        const thisNextRace: RequestModel = response.data;
+        setPilots(thisNextRace.MRData.StandingsTable?.StandingsLists[0]?.DriverStandings);
         setIsLoading(false);
       })
       .catch(() => {

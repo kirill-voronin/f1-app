@@ -45,9 +45,6 @@ const PilotSmallCard = ({ code, pilotUri, number }: PilotSmallCardProps) => {
         setCorrectPilotWikiId(
           getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
         );
-        console.log(
-          getCorrectPilotWikiId(pilotWikiId, JSON.parse(result).parse.wikitext["*"]),
-        );
       })
       .catch((error) => {
         console.log("error", error);

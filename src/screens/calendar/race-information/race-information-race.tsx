@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 
-import axios, { year } from "../../../axois/axios";
-import { MRDataRaceResults, Result } from "../../../axois/data-race-results";
+import axios, { year } from "../../../api/axios";
+import { RequestModel, Result } from "../../../api/interfaces";
 import PilotCard from "../../../components/cards/pilot-card";
 import FutureRace from "../../../components/future-race";
 import LoadingComponent from "../../../components/loading";
@@ -22,8 +22,8 @@ const RaceInfoRaceResult = ({ route }: RaceInfoRaceResultProps) => {
     if (!raceTime) {
       setIsLoading(true);
       axios.get(`/${year}/${round}/results.json`).then((response) => {
-        const race: MRDataRaceResults = response.data;
-        setRaceResutls(race.MRData.RaceTable.Races[0].Results);
+        const race: RequestModel = response.data;
+        setRaceResutls(race.MRData.RaceTable?.Races[0].Results || []);
         setIsLoading(false);
       });
     }

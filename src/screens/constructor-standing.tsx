@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import axios, { CONSTRUCTORS_STANDING } from "../axois/axios";
-import {
-  ConstructorStanding,
-  MRDataConstructorsStanding,
-} from "../axois/data-constructors";
+import axios, { CONSTRUCTORS_STANDING } from "../api/axios";
+import { ConstructorStanding, RequestModel } from "../api/interfaces";
 import ConstructorCard from "../components/cards/command-card";
 import ErrorComponent from "../components/error";
 import Header from "../components/header";
@@ -28,9 +25,9 @@ export default function ConstructorsStanding({ navigation }: ConstructorStanding
     axios
       .get(CONSTRUCTORS_STANDING)
       .then((response) => {
-        const constructors: MRDataConstructorsStanding = response.data;
+        const constructors: RequestModel = response.data;
         setConstructors(
-          constructors.MRData.StandingsTable.StandingsLists[0]?.ConstructorStandings,
+          constructors.MRData.StandingsTable?.StandingsLists[0]?.ConstructorStandings,
         );
         setIsLoading(false);
       })

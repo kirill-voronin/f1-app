@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import RaceTime from "./components/race-time";
-import axios, { NEXT_RACE } from "../../axois/axios";
-import { MRDataRace, Race } from "../../axois/data-race";
+import axios, { NEXT_RACE } from "../../api/axios";
+import { MRDataRace, Race } from "../../api/data-race";
 import { getTimeToRace } from "../../functions/getTimeToRace";
 import FlagIcons from "../../icons/flag-icons/flag-icons";
 import { colors } from "../../style/colors";

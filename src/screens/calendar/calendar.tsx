@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import axios, { ALL_RACES, NEXT_RACE } from "../../axois/axios";
-import { MRDataRace, Race } from "../../axois/data-race";
+import axios, { ALL_RACES, NEXT_RACE } from "../../api/axios";
+import { Race, RequestModel } from "../../api/interfaces";
 import RaceCard from "../../components/cards/race-card";
 import LoadingComponent from "../../components/loading";
 import NextRace from "../../components/next-race/next-race";
@@ -25,9 +25,9 @@ export default function Calendar({ navigation }: CalendarProps) {
       await axios
         .get(NEXT_RACE)
         .then((response) => {
-          const thisNextRace: MRDataRace = response.data;
-          if (thisNextRace.MRData.RaceTable.Races.length === 0) setIsEndSeason(true);
-          else setNextRace(thisNextRace.MRData.RaceTable.Races[0]);
+          const thisNextRace: RequestModel = response.data;
+          if (thisNextRace.MRData.RaceTable?.Races.length === 0) setIsEndSeason(true);
+          else setNextRace(thisNextRace.MRData.RaceTable?.Races[0]);
         })
         .catch(() => {
           setIsLoading(false);
@@ -42,18 +42,20 @@ export default function Calendar({ navigation }: CalendarProps) {
       await axios
         .get(ALL_RACES)
         .then((response) => {
-          const allRaces: MRDataRace = response.data;
+          const allRaces: RequestModel = response.data;
           let nextRaces: Race[] = [];
           let lastRaces: Race[] = [];
           if (!isEndSeason) {
-            nextRaces = allRaces.MRData.RaceTable.Races.filter(
-              (race) => Number(race.round) > Number(nextRace?.round),
-            );
-            lastRaces = allRaces.MRData.RaceTable.Races.filter(
-              (race) => Number(race.round) < Number(nextRace?.round),
-            );
+            nextRaces =
+              allRaces.MRData.RaceTable?.Races.filter(
+                (race) => Number(race.round) > Number(nextRace?.round),
+              ) || [];
+            lastRaces =
+              allRaces.MRData.RaceTable?.Races.filter(
+                (race) => Number(race.round) < Number(nextRace?.round),
+              ) || [];
           } else {
-            lastRaces = allRaces.MRData.RaceTable.Races;
+            lastRaces = allRaces.MRData.RaceTable?.Races || [];
           }
 
           setNextRaces(nextRaces);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import { DriverStanding } from "../../../axois/data-pilots";
+import { DriverStanding } from "../../../api/interfaces";
 import Header from "../../../components/header";
 import LoadingComponent from "../../../components/loading";
 import { colors } from "../../../style/colors";

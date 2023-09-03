@@ -1,4 +1,4 @@
-import { MRDataRace } from "../axois/data-race";
+import { MRDataRace } from "../api/data-race";
 
 export const last: MRDataRace = {
   MRData: {
